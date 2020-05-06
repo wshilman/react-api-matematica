@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { Grid } from '@material-ui/core';
+import { Link, Redirect } from 'react-router-dom';
 import Nav from './Nav'
 import suma from '../media/suma.png'
 import resta from '../media/resta.png'
@@ -34,15 +35,21 @@ const useStyles = makeStyles({
 });
 
 const Games = props =>{
-  let { nombre, apellido } = props
+  let { nombre, setTopic } = props
 
   const classes = useStyles();
 
+  const handleClick = ()=>{
+    console.log("hi3");
+    // setTopic(topic);
+  }
+
   return (
     <div className={classes.container}>
-      <Nav name = {nombre}/>
       <Grid container className= {classes.grid}>
-        <Card className={classes.card}>
+        <Card className={classes.card} >
+        <Link to='/niveles' style={{ textDecoration: 'none' }}>
+
           <CardActionArea>
             <CardMedia
               className={classes.media}
@@ -58,8 +65,11 @@ const Games = props =>{
               </Typography>
             </CardContent>
           </CardActionArea>
+        </Link>
         </Card>
+        
         <Card className={classes.card}>
+        <Link to='/niveles' style={{ textDecoration: 'none' }}>
           <CardActionArea>
               <CardMedia
                 className={classes.media}
@@ -75,23 +85,29 @@ const Games = props =>{
                 </Typography>
               </CardContent>
             </CardActionArea>
+            </Link>
           </Card>
+
           <Card className={classes.card}>
-          <CardActionArea>
-              <CardMedia
-                className={classes.media}
-                image={division}
-                title="Juego 3"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  Juego 3
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  Esta es la descripcion del juego 3
-                </Typography>
-              </CardContent>
-            </CardActionArea>
+            <Link to='/niveles' style={{ textDecoration: 'none' }}>            
+              <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image={division}
+                    title="Juego 3"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Juego 3
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      Esta es la descripcion del juego 3
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+            </Link>
+
+                
           </Card>
 
 
