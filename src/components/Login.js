@@ -59,7 +59,7 @@ const Login = props =>{
   }
 
   const handleChangeName = (event, input) =>{
-    if (input == "nombre") {
+    if (input === "nombre") {
     setNombreValue(event.target.value);
       
     }else{
