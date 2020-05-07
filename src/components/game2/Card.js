@@ -25,7 +25,7 @@ const Source = props => {
         style={{
             opacity: isDragging ? 0.5 : 1,
             cursor:"move"}}>
-            <h1>{props.text}</h1>
+            <h1 style={{marginTop:"40%"}}>{props.text}</h1>
         </div>
     )
 }
@@ -43,7 +43,7 @@ const Target = props => {
     return (
         <div className={props.class}
         ref={drop}>
-            <h1 style={{color: isOver ? "green" : "black"}}>{props.text}</h1>
+            <h1 style={{color: isOver ? "green" : "black", marginTop:"40%"}}>{props.text}</h1>
             
         </div>
     )
