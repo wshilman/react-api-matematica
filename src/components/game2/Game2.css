@@ -1,0 +1,78 @@
+.board {
+    height: 100%;
+    width: 100%;
+    background-color: #1876D2;
+    margin-top: 25px;
+    position: relative;
+}
+
+.container {
+    height: 50%;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.source1 {
+    height: 100px;
+    width: auto;
+    background-color: seagreen;
+    border-radius: 20px;
+    position: absolute;
+    margin: 4%;
+    left: 0;
+}
+
+.source2 {
+    height: 100px;
+    width: auto;
+    background-color: seagreen;
+    border-radius: 20px;
+    position: absolute;
+    margin: 4%;
+    left: 0;
+    bottom: 0;
+}
+
+.source3 {
+    height: 100px;
+    width: auto;
+    background-color: seagreen;
+    border-radius: 20px;
+    position: absolute;
+    margin: 4%;
+    left: 0;
+    bottom: 40%;
+}
+
+
+.target1 {
+    height: 100px;
+    width: 70px;
+    background-color:rgba(122, 35, 194, 0.747);
+    border-radius: 20px;
+    position: absolute;
+    margin: 4%;
+    top: 0;
+    right: 0;
+}
+.target2 {
+    height: 100px;
+    width: 70px;
+    background-color: rgba(122, 35, 194, 0.747);
+    border-radius: 20px;
+    position: absolute;
+    margin: 4%;
+    right: 0;
+    bottom: 0;
+}
+.target3 {
+    height: 100px;
+    width: 70px;
+    background-color: rgba(122, 35, 194, 0.747);
+    border-radius: 20px;
+    position: absolute;
+    margin: 4%;
+    right: 0;
+    bottom: 40%;
+
+}

@@ -7,14 +7,11 @@ const useStyles = makeStyles({
         fontSize: 25,
         textAlign:"left",
         marginLeft: 5,
-
-
+        marginBottom:-10
     },
     nav:{
         height: 35,
         backgroundColor:"#1876D2",
-        marginTop:-18,
-        marginBottom:0,
     }
 });
 
@@ -23,11 +20,10 @@ const Nav = ({nombre})=>{
 
     return(
         <div>
-            {
-        nombre &&
-        <div className={classes.nav}>
-                <h1 className={classes.text}>Hola: {nombre}! </h1>
-        </div>}
+            {nombre &&
+            <div className={classes.nav}>
+                    <h1 className={classes.text}>Hola: {nombre}! </h1>
+            </div>}
         </div>
     );
 }

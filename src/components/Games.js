@@ -39,11 +39,6 @@ const Games = props =>{
 
   const classes = useStyles();
 
-  const handleClick = ()=>{
-    console.log("hi3");
-    // setTopic(topic);
-  }
-
   return (
     <div className={classes.container}>
       <Grid container className= {classes.grid}>

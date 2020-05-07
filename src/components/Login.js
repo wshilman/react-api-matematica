@@ -8,19 +8,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { Link, Redirect } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Fondo from '../media/numbersLoginWallpaper.jpg';
 import { useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
-  image: {
-    backgroundImage: `url(${Fondo})`,
-    height: "auto",
-    width: "auto"
-  },
   paper: {
     display: 'flex',
     flexDirection: 'column',

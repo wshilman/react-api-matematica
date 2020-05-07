@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
-import './App.css';
-import Login from './components/Login'
-import Games from './components/Games'
-import Nav from './components/Nav'
-import Levels from './components/Levels'
+import './Main.css';
+import Login from './components/Login';
+import Games from './components/Games';
+import Nav from './components/Nav';
+import Levels from './components/Levels';
+import Board from './components/game1/Board';
+import Card from './components/game1/Board';
+import Game1 from './components/game1/Game1';
+import Game2 from './components/game2/Game2';
+
+
 
 
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const App = ()=> {
-  const [nombre, setNombre] = useState("");
+  const [nombre, setNombre] = useState("Walter");
   const [apellido, setApellido] = useState("");
   const [topic, setTopic] = useState("");
 
@@ -27,6 +33,8 @@ const App = ()=> {
           <Route path="/juegos" exact component={()=> <Games nombre={nombre} setTopic={setTopic} />}/>
 
           <Route path="/niveles" exact component={() => <Levels topic={topic} />}/>
+
+          <Route path="/nivel1" exact component={() => <Game2></Game2> }/>
 
 
         </Switch>
