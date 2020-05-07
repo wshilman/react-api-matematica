@@ -10,7 +10,8 @@ const Board = props => {
                 <div className='board'>
                     {props.children}
                 </div>
-            </div>
+                    <h1>valor {props.target} puntos bien:{props.progress}</h1>
+            </div> 
         </DndProvider>
     )
 }
