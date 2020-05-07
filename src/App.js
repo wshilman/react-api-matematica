@@ -16,7 +16,7 @@ import Game2 from './components/game2/Game2';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const App = ()=> {
-  const [nombre, setNombre] = useState("Walter");
+  const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [topic, setTopic] = useState("");
 
