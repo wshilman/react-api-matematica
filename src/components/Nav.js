@@ -7,11 +7,12 @@ const useStyles = makeStyles({
         fontSize: 25,
         textAlign:"left",
         marginLeft: 5,
-        marginBottom:-10
+        marginBottom:-10,
     },
     nav:{
         height: 35,
         backgroundColor:"#1876D2",
+        marginTop: -19
     }
 });
 

@@ -33,7 +33,7 @@ const AlertDialogSlide = () =>{
           <DialogTitle id="alert-dialog-slide-title">{"FELICITACIONES!"}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              Ganaste CRACK!
+              Muy Bien! Ganaste!
             </DialogContentText>
           </DialogContent>
           <DialogActions>
