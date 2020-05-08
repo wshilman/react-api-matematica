@@ -6,6 +6,8 @@ import Nav from './components/Nav';
 import Levels from './components/Levels';
 import Game1 from './components/game1/Game1';
 import Game2 from './components/game2/Game2';
+import Game3 from './components/game3/Game3';
+
 
 
 
@@ -35,6 +37,8 @@ const App = ()=> {
           <Route path="/nivel1" exact component={() => <Game1></Game1> }/>
 
           <Route path="/nivel2" exact component={() => <Game2></Game2> }/>
+
+          <Route path="/nivel3" exact component={() => <Game3></Game3> }/>
 
 
 
