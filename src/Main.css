@@ -1,8 +1,7 @@
 .App {
   text-align: center;
-  background: url('./media/numbersLoginWallpaper.jpg') repeat-y;
+  background: url('./media/number.png') repeat;
   height:300vh;
-  background-size: cover;
   overflow-y: hidden;
 }
 @media (min-width:1800px){

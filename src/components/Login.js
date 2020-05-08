@@ -18,6 +18,12 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    background: "rgba(234, 234, 244, 0.78)",
+    radius: "2em",
+    marginTop: "20px",
+    border: "1px solid #ccc",
+    borderRadius: "2em",
+    padding: "20px"
   },
   avatar: {
     margin: theme.spacing(1),
@@ -32,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
   },
   text: {
     color:"#4054B5"
+  },
+  name: {
+    backgroundColor: "red"
   }
 }));
 
@@ -66,9 +75,9 @@ const Login = props =>{
       <CssBaseline />
       
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <img height="42" width="42" alt = "icono" src={require("../media/avatar.jpg")}></img>
-        </Avatar>
+        <Container>
+          <img height="200" width="300" alt = "icono" src={require("../media/matematicas.png")}></img>
+        </Container>
         <Typography component="h1" variant="h4" className={classes.text}>
           Entrar al juego!
         
@@ -84,6 +93,7 @@ const Login = props =>{
             name="nombre"
             autoFocus
             onChange={(event) =>handleChangeName(event, "nombre")}
+            className={classes.name}
             value={nombreValue}
           />
           <TextField
