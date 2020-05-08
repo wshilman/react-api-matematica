@@ -1,6 +1,6 @@
 import React from 'react'
 import Board from './Board'
-import WinPage from './WinPage'
+import WinPage from '../../utils/WinPage'
 
 import { Source , Target } from './Card'
 import { useState }from 'react';

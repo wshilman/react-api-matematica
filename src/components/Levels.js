@@ -64,7 +64,7 @@ const Levels = () =>{
         </Card>
         
         <Card className={classes.card}>
-        <Link to='/niveles' style={{ textDecoration: 'none' }}>
+        <Link to='/nivel2' style={{ textDecoration: 'none' }}>
           <CardActionArea>
               <CardMedia
                 className={classes.media}

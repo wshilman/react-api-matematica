@@ -1,30 +1,71 @@
-import React from 'react'
-import Board from './Board'
-import Card from './Card'
-import './Game1.css'
+import React from 'react';
+import Board from './Board';
+import Quiz from './Quiz';
+import './Game1.css';
+import { makeStyles } from '@material-ui/core/styles';
+import { useState } from 'react';
+import WinPage from '../../utils/WinPage'
 
 
 
-const Game1 = props => {
+const Game1 = () => {
+    const [ progress, setProgress] = useState(0);
+
+
+    const pack1 = {
+        n:1,
+        quest:"8 - 2",
+        r1:7,
+        r2:9,
+        r3: 6,
+        r4:2,
+        right:3,
+        setProgress:setProgress,
+        progress:progress,
+
+
+    }
+    const pack2 = {
+        n:2,
+        quest:"23 - 6",
+        r1:19,
+        r2: 17,
+        r3:9,
+        r4:14,
+        right:2,
+        setProgress:setProgress,
+        progress:progress,
+
+
+
+    }
+    const pack3 = {
+        n:3,
+        quest:"11 - 8",
+        r1:5,
+        r2:2,
+        r3:-3,
+        r4: 3,
+        right:4,
+        setProgress:setProgress,
+        progress:progress,
+    }
+    
+
+
 
     return (
-        <div className='flexbox'>
-            <Board id='board-one' className='board'> 
-                <Card id='card-one' draggable='true' className='card'>
-                <p>Carta n 1</p>
-                </Card>
-            </Board>
+        <Board>
+                <Quiz pack={pack1}>
+                </Quiz>
+                <Quiz pack={pack2}>
+                </Quiz>
+                <Quiz pack={pack3}>
+                </Quiz>
+            {progress==3 ? <WinPage></WinPage> : null}
 
-            <Board id='board-two' className='board'> 
-                <Card id='card-two' draggable='true' className='card'>
-                <p>Carta n 2</p>
-                </Card>
-            </Board>
-
-        </div>
+        </Board>
     )
 }
 
 export default Game1
-
-

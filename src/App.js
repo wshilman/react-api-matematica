@@ -4,8 +4,6 @@ import Login from './components/Login';
 import Games from './components/Games';
 import Nav from './components/Nav';
 import Levels from './components/Levels';
-import Board from './components/game1/Board';
-import Card from './components/game1/Board';
 import Game1 from './components/game1/Game1';
 import Game2 from './components/game2/Game2';
 
@@ -34,7 +32,10 @@ const App = ()=> {
 
           <Route path="/niveles" exact component={() => <Levels topic={topic} />}/>
 
-          <Route path="/nivel1" exact component={() => <Game2></Game2> }/>
+          <Route path="/nivel1" exact component={() => <Game1></Game1> }/>
+
+          <Route path="/nivel2" exact component={() => <Game2></Game2> }/>
+
 
 
         </Switch>
