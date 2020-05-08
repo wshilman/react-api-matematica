@@ -39,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
   text: {
     color:"#4054B5"
   },
-  name: {
-    backgroundColor: "red"
+  input: {
+    backgroundColor: "#f7f7ff"
   }
 }));
 
@@ -79,7 +79,7 @@ const Login = props =>{
           <img height="200" width="300" alt = "icono" src={require("../media/matematicas.png")}></img>
         </Container>
         <Typography component="h1" variant="h4" className={classes.text}>
-          Entrar al juego!
+          Yo soy!
         
         </Typography>
         <form className={classes.form} noValidate>
@@ -93,7 +93,7 @@ const Login = props =>{
             name="nombre"
             autoFocus
             onChange={(event) =>handleChangeName(event, "nombre")}
-            className={classes.name}
+            className={classes.input}
             value={nombreValue}
           />
           <TextField
@@ -106,6 +106,7 @@ const Login = props =>{
             id="apellido"
             onChange={(event) =>handleChangeName(event, "apellido")}
             value={apellidoValue}
+            className={classes.input}
           />
           <Button
             fullWidth
@@ -115,7 +116,7 @@ const Login = props =>{
             onClick={(ev)=>handleClick(ev)}
             component = {Link}
             to= "/juegos"
-          > Ingresar
+          > Entrar
           </Button>
         </form>
       </div>
