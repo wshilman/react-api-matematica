@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Main.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './components/Login';
 import Games from './components/Games';
 import Nav from './components/Nav';

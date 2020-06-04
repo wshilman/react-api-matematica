@@ -1,7 +1,7 @@
 .board3 {
     height: 100%;
     width: 100%;
-    background-color: rgb(51, 145, 82);
+    background-color:rgba(158, 158, 158, 0.22);
     margin-top: 25px;
     position: relative;
 }

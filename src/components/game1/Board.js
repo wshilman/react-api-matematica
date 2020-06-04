@@ -16,13 +16,16 @@ const useStyles = makeStyles({
 
     },
     container:{
-        backgroundColor: "rgb(51, 145, 82)",
+        backgroundColor: "rgba(158, 158, 158, 0.22)",
         // alignItems: "center",
 
-        height: "120%",
-        width: "70%",
+        height: "auto",
+        width: "80%",
+        marginLeft: "auto",
+        marginRight: "auto",
+        padding:"20px"
         // margin: "0 auto",
-        marginLeft: "15%"
+        //marginLeft: "15%"
     }
   });
 const Board = props => {

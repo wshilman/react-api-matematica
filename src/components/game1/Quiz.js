@@ -7,6 +7,9 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
+
+import Card from 'react-bootstrap/Card'
+import CardDeck from 'react-bootstrap/CardDeck'
 import './Game1.css';
 
 
@@ -26,6 +29,9 @@ const Quiz = props => {
 
   let { n,
      quest,
+     n1,
+     n2,
+     operation,
      r1,
      r2,
      r3,
@@ -72,6 +78,50 @@ const Quiz = props => {
   };
 
   return (
+    <Card style={{maxHeight: "420px"}} border={ won?'success': error?"danger":"light"} >
+      <form onSubmit={handleSubmit}>
+        <Card.Img variant="top" src="holder.js/100px160" />
+        <Card.Body>
+          <Card.Title>
+            <CardDeck>
+              <Card style={{ width: '18rem' }}>
+                <Card.Body>
+                  {n1}
+                </Card.Body>
+              </Card>
+              <Card style={{ width: '18rem' }}>
+                <Card.Body>
+                  {operation}
+                </Card.Body>
+              </Card>
+              <Card style={{ width: '18rem' }}>
+                <Card.Body>
+                  {n2}
+                </Card.Body>
+              </Card>
+            </CardDeck>
+          </Card.Title>
+          <Card.Text>
+          <RadioGroup aria-label="quiz" name="quiz" value={value} onChange={handleRadioChange} style={{marginTop:10}}>
+            <FormControlLabel value={right === 1 ? "right": "bad1"} control={<Radio />} label={r1} />
+            <FormControlLabel value={right === 2 ? "right": "bad2"}  control={<Radio />} label={r2} />
+            <FormControlLabel value={right === 3 ? "right": "bad3"}  control={<Radio />} label={r3} />
+            <FormControlLabel value={right === 4 ? "right": "bad4"}  control={<Radio />} label={r4} />
+          </RadioGroup>
+
+          </Card.Text>
+        </Card.Body>
+        <Card.Footer>
+          <Button type="submit" variant="outlined" color="primary" className={classes.button}>
+            Enviar Respuesta
+          </Button>
+        </Card.Footer>
+      </form>
+    </Card>
+  )
+
+  /*
+  return (
       <form onSubmit={handleSubmit}>
         <FormControl component="fieldset" error={error} className={classes.formControl} style={{border: won? '5px double green': error?'5px double red':'5px double blue'}}>
           <FormLabel component="legend">{quest}</FormLabel>
@@ -87,7 +137,7 @@ const Quiz = props => {
           </Button>
         </FormControl>
       </form>
-  );
+  );*/
 
   
 }
