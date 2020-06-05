@@ -7,7 +7,12 @@ import { useState } from 'react';
 import WinPage from '../../utils/WinPage'
 import Card from 'react-bootstrap/Card'
 import CardDeck from 'react-bootstrap/CardDeck'
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
+import iconNext from '../../media/next.png';
+import iconPrev from '../../media/prev.png';
 
 const Game1 = () => {
     const [ progress, setProgress] = useState(0);
@@ -75,6 +80,14 @@ const Game1 = () => {
                 </Quiz>
             {progress==3 ? <WinPage></WinPage> : null}
             </CardDeck>
+            <Grid container spacing={3} style={{paddingTop:"20px"}}>
+                <Grid item xs={6}>
+                <img src={iconPrev} style={{width:"80px",cursor:"pointer"}} alt="Previo"/>
+                </Grid>
+                <Grid item xs={6}>
+                <img src={iconNext} style={{width:"80px",cursor:"pointer"}} alt="Proximo"/>
+                </Grid>
+            </Grid>
         </Board>
     )
 }

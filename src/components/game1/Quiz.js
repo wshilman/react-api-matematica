@@ -12,6 +12,10 @@ import Card from 'react-bootstrap/Card'
 import CardDeck from 'react-bootstrap/CardDeck'
 import './Game1.css';
 
+import iconStale from '../../media/stale.png';
+import iconOk from '../../media/ok.png';
+import iconError from '../../media/error.png';
+
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -48,6 +52,7 @@ const Quiz = props => {
   const [error, setError] = React.useState(false);
   const [helperText, setHelperText] = React.useState('Elegí una opcion');
   const [won, setWon] = React.useState(false);
+  const [sendRta, setSendRta] = React.useState(false);
 
 
   const handleRadioChange = (event) => {
@@ -64,13 +69,15 @@ const Quiz = props => {
       setError(false);
       setProgress(progress + 1)
       setWon(true)
+      setSendRta(true);
     } else if (value === 'right') {
       setHelperText('Correcto!');
       setError(false);
-
+      setSendRta(true);
     } else if (value === 'bad1' || 'bad2' || 'bad3' || 'bad4') {
       setHelperText('Respuesta incorrecta!');
       setError(true);
+      setSendRta(true);
     } else {
       setHelperText('Elegí una opción!');
       setError(true);
@@ -78,9 +85,9 @@ const Quiz = props => {
   };
 
   return (
-    <Card style={{maxHeight: "420px"}} border={ won?'success': error?"danger":"light"} >
+    <Card style={{maxHeight: "450px"}} border={ won?'success': error?"danger":"light"} >
       <form onSubmit={handleSubmit}>
-        <Card.Img variant="top" src="holder.js/100px160" />
+        <Card.Img variant="top" style={{width: "50px",paddingTop:"10px"}} src={ won?iconOk: error?iconError:iconStale} />
         <Card.Body>
           <Card.Title>
             <CardDeck>
@@ -103,20 +110,21 @@ const Quiz = props => {
           </Card.Title>
           <Card.Text>
           <RadioGroup aria-label="quiz" name="quiz" value={value} onChange={handleRadioChange} style={{marginTop:10}}>
-            <FormControlLabel value={right === 1 ? "right": "bad1"} control={<Radio />} label={r1} />
-            <FormControlLabel value={right === 2 ? "right": "bad2"}  control={<Radio />} label={r2} />
-            <FormControlLabel value={right === 3 ? "right": "bad3"}  control={<Radio />} label={r3} />
-            <FormControlLabel value={right === 4 ? "right": "bad4"}  control={<Radio />} label={r4} />
+            <FormControlLabel value={right === 1 ? "right": "bad1"}  disabled={sendRta} control={<Radio />} label={r1} />
+            <FormControlLabel value={right === 2 ? "right": "bad2"}  disabled={sendRta} control={<Radio />} label={r2} />
+            <FormControlLabel value={right === 3 ? "right": "bad3"}  disabled={sendRta} control={<Radio />} label={r3} />
+            <FormControlLabel value={right === 4 ? "right": "bad4"}  disabled={sendRta} control={<Radio />} label={r4} />
           </RadioGroup>
 
           </Card.Text>
         </Card.Body>
         <Card.Footer>
-          <Button type="submit" variant="outlined" color="primary" className={classes.button}>
+          <Button type="submit" disabled={sendRta} variant="outlined" color="primary" className={classes.button}>
             Enviar Respuesta
           </Button>
         </Card.Footer>
       </form>
+     
     </Card>
   )
 
