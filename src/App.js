@@ -26,11 +26,11 @@ const App = ()=> {
 
           <Route path="/niveles" exact component={() => <Levels />}/>
 
-          <Route path="/nivel1" exact component={() => <Game1></Game1> }/>
+          <Route path="/juego1" exact component={() => <Game1></Game1> }/>
 
-          <Route path="/nivel2" exact component={() => <Game2></Game2> }/>
+          <Route path="/juego2" exact component={() => <Game2></Game2> }/>
 
-          <Route path="/nivel3" exact component={() => <Game3></Game3> }/>
+          <Route path="/juego3" exact component={() => <Game3></Game3> }/>
         </Switch>
       </div>
     </Router>

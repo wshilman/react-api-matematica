@@ -5,7 +5,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 
-import { Link } from 'react-router-dom';
+import { Link, Redirect} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 
 import n1 from '../media/level1.png'
@@ -36,6 +36,23 @@ const useStyles = makeStyles({
   }
 });
 
+const renderRedirect = () => {
+  if(!localStorage.getItem('nombre')){
+    return(<Redirect to='/'></Redirect>)
+  }
+}
+
+const handleGame = () => {
+  const juego = localStorage.getItem('idJuego');
+  return(`/juego${juego}`);
+}
+
+const handleClick = (idLvl) => {
+  localStorage.setItem('idLvl', idLvl)
+}
+
+
+
 const Levels = (props) =>{
     
     const classes = useStyles();
@@ -44,7 +61,7 @@ const Levels = (props) =>{
             <div className={classes.container}>
       <Grid container className= {classes.grid}>
         <Card className={classes.card} >
-        <Link to='/nivel1' style={{ textDecoration: 'none' }}>
+        <Link onClick={()=>{handleClick(1)}} to={handleGame()} style={{ textDecoration: 'none' }}>
 
           <CardActionArea style={{minWidth: "200px"}}>
             <CardMedia
@@ -59,7 +76,7 @@ const Levels = (props) =>{
         </Card>
         
         <Card className={classes.card}>
-        <Link to='/nivel2' style={{ textDecoration: 'none' }}>
+        <Link onClick={()=>{handleClick(2)}} to={handleGame()} style={{ textDecoration: 'none' }}>
             <CardActionArea style={{minWidth: "200px"}}>
               <CardMedia
                 className={classes.media}
@@ -73,7 +90,7 @@ const Levels = (props) =>{
           </Card>
 
           <Card className={classes.card}>
-            <Link to='/nivel3' style={{ textDecoration: 'none' }}>            
+            <Link onClick={()=>{handleClick(3)}} to={handleGame()} style={{ textDecoration: 'none' }}>            
                 <CardActionArea style={{minWidth: "200px"}}>
                   <CardMedia
                     className={classes.media}
@@ -85,12 +102,10 @@ const Levels = (props) =>{
                 </CardActionArea>
             </Link>
 
-                
           </Card>
 
-
-
       </Grid>
+      {renderRedirect()}
         </div>
     )
 }
