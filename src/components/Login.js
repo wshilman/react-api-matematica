@@ -50,9 +50,11 @@ const Login = props =>{
 
   const handleClick = event =>{
     event.preventDefault();
-    localStorage.setItem('nombre', nombreValue);
-    localStorage.setItem('apellido', nombreValue);
-    window.location.reload();
+    if (nombreValue != null && nombreValue !=''){
+      localStorage.setItem('nombre', nombreValue);
+      localStorage.setItem('apellido', nombreValue);
+      window.location.reload();
+    }
   }
 
   const handleChangeName = (event, input) =>{
@@ -82,7 +84,6 @@ const Login = props =>{
         </Container>
         <Typography component="h1" variant="h4" className={classes.text}>
           Yo soy!
-        
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
