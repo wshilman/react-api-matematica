@@ -44,6 +44,10 @@ const Games = props =>{
   }
 
   const renderRedirect = () => {
+    if(!localStorage.getItem('nombre')){
+      return(<Redirect to='/'></Redirect>)
+    }
+
     if(redirect){
       return(<Redirect to='/niveles'></Redirect>)
     }
