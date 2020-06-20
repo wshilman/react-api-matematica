@@ -42,7 +42,8 @@ const Quiz = props => {
      r4,
      right,
      setProgress,
-     progress
+     progress,
+     lvl
 
 
   } = props.pack;
@@ -50,36 +51,43 @@ const Quiz = props => {
   const classes = useStyles();
   const [value, setValue] = React.useState('');
   const [error, setError] = React.useState(false);
-  const [helperText, setHelperText] = React.useState('Elegí una opcion');
   const [won, setWon] = React.useState(false);
   const [sendRta, setSendRta] = React.useState(false);
 
 
   const handleRadioChange = (event) => {
+    // localStorage.clear()
     setValue(event.target.value);
-    setHelperText(' ');
     setError(false);
   };
 
+  const handlePoints = (points) => {
+    // pointsGame1Lvl1
+    const now = localStorage.getItem(`pointsGame1Lvl${lvl}`)
+    now ? localStorage.setItem(`pointsGame1Lvl${lvl}`, parseInt(now) + points):localStorage.setItem(`pointsGame1Lvl${lvl}`,points)
+    console.log(localStorage.getItem(`pointsGame1Lvl${lvl}`))
+  }
+  
   const handleSubmit = (event) => {
     event.preventDefault();
 
     if (value === 'right' && !won) {
-      setHelperText('Correcto!');
       setError(false);
       setProgress(progress + 1)
       setWon(true)
       setSendRta(true);
+      handlePoints(10);
     } else if (value === 'right') {
-      setHelperText('Correcto!');
+      setProgress(progress + 1)
+      handlePoints(10);
       setError(false);
       setSendRta(true);
     } else if (value === 'bad1' || 'bad2' || 'bad3' || 'bad4') {
-      setHelperText('Respuesta incorrecta!');
+      setProgress(progress + 1)
+      handlePoints(0)
       setError(true);
       setSendRta(true);
     } else {
-      setHelperText('Elegí una opción!');
       setError(true);
     }
   };

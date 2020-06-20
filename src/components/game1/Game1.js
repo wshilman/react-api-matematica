@@ -31,8 +31,7 @@ const Game1 = () => {
         right:3,
         setProgress:setProgress,
         progress:progress,
-
-
+        lvl:1
     }
     const pack2 = {
         n:2,
@@ -47,7 +46,7 @@ const Game1 = () => {
         right:2,
         setProgress:setProgress,
         progress:progress,
-
+        lvl:1
 
 
     }
@@ -64,6 +63,7 @@ const Game1 = () => {
         right:4,
         setProgress:setProgress,
         progress:progress,
+        lvl:1
     }
     
 
@@ -78,7 +78,7 @@ const Game1 = () => {
                 </Quiz>
                 <Quiz pack={pack3}>
                 </Quiz>
-            {progress==3 ? <WinPage></WinPage> : null}
+            {progress==3 ? <WinPage game='1' lvl='1'></WinPage> : null}
             </CardDeck>
             <Grid container spacing={3} style={{paddingTop:"20px"}}>
                 <Grid item xs={6}>

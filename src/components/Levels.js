@@ -38,30 +38,10 @@ const useStyles = makeStyles({
   }
 });
 
-const Levels = () =>{
+const Levels = (props) =>{
     
     const classes = useStyles();
-  /*
-    return (
-      <div className={classes.container}>
-        <Grid container className={classes.root} spacing={2}>
-          <Grid item xs={12}>
-            <Grid container justify="center" spacing={10}>
-              
-                <Grid key={4} item>
-                  <img src={n1} style={{width:"200px",cursor:"pointer"}} alt="Previo"/>
-                </Grid>
-                <Grid key={4} item>
-                  <img src={n2} style={{width:"200px",cursor:"pointer"}} alt="Previo"/>
-                </Grid>
-                <Grid key={4} item>
-                  <img src={n3} style={{width:"200px",cursor:"pointer"}} alt="Previo"/>
-                </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </div>
-    );*/
+
     return(
             <div className={classes.container}>
       <Grid container className= {classes.grid}>
