@@ -17,8 +17,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const AlertDialogSlide = (props) =>{
   let {game,lvl} = props
   const handleText = () => {
-    localStorage.setItem(`pointsGame${game}Lvl${lvl}`,0);
-
+    
     if(localStorage.getItem(`pointsGame${game}Lvl${lvl}`) == 30){
       return('Ganaste!!')
     }else{
@@ -50,6 +49,7 @@ const AlertDialogSlide = (props) =>{
             </Button>
           </DialogActions>
         </Dialog>
+        {localStorage.setItem(`pointsGame${game}Lvl${lvl}`,0)}
       </div>
     );
   }
