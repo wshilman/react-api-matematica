@@ -47,8 +47,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Login = props =>{
-  let { nombre, setNombre, apellido, setApellido } = props;
-
   const [nombreValue, setNombreValue] = useState("");
   const [apellidoValue, setApellidoValue] = useState("");
 
@@ -56,8 +54,9 @@ const Login = props =>{
 
   const handleClick = event =>{
     event.preventDefault();
-    setNombre(nombreValue);
-    setApellido(apellidoValue);
+    localStorage.setItem('nombre', nombreValue);
+    localStorage.setItem('apellido', nombreValue);
+    window.location.reload();
   }
 
   const handleChangeName = (event, input) =>{
@@ -68,6 +67,13 @@ const Login = props =>{
       setApellidoValue(event.target.value);
     }
   }
+
+  const handleLogon = () => {
+    if (localStorage.getItem('nombre') != null){
+      return(<Redirect to='/juegos'> </Redirect>);
+    }
+  }
+  
 
   return (
     <div className={classes.image}>
@@ -114,8 +120,8 @@ const Login = props =>{
             color="primary"
             className={classes.submit}
             onClick={(ev)=>handleClick(ev)}
-            component = {Link}
             to= "/juegos"
+            component = {Link}
           > Entrar
           </Button>
         </form>
@@ -123,7 +129,8 @@ const Login = props =>{
       <Box mt={8}>
       </Box>
     </Container>
-    {nombre && <Redirect to='/juegos' />}
+    {handleLogon()}
+    {/* {nombre && <Redirect to='/juegos' />} */}
     </div>
   );
 

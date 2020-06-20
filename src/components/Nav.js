@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -18,8 +18,9 @@ const useStyles = makeStyles({
     }
 });
 
-const Nav = ({nombre})=>{
+const Nav = ()=>{
     const classes = useStyles();
+    const nombre = localStorage.getItem('nombre');
 
     return(
         <div>
