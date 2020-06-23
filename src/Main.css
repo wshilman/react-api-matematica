@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   background: url('./media/number.png') repeat;
-  height:180vh;
+  height:100vh;
   overflow-y: hidden;
 }
 @media (min-width:1800px){
