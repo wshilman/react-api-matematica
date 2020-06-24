@@ -66,7 +66,7 @@ const Target = props => {
             
         }else{
             return(
-                <img className="img" src={correct}></img>
+                <img alt='Imagen Correcto' className="img" src={correct}></img>
                 // <h1 style={{marginTop:"40%",
                 //     color: "black",
                 //     opacity:0.1}}>{value}</h1>

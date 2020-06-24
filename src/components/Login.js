@@ -1,12 +1,8 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import { Link, Redirect } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -47,8 +43,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Login = props =>{
-  let { nombre, setNombre, apellido, setApellido } = props;
-
   const [nombreValue, setNombreValue] = useState("");
   const [apellidoValue, setApellidoValue] = useState("");
 
@@ -56,8 +50,11 @@ const Login = props =>{
 
   const handleClick = event =>{
     event.preventDefault();
-    setNombre(nombreValue);
-    setApellido(apellidoValue);
+    if (nombreValue != null && nombreValue !=''){
+      localStorage.setItem('nombre', nombreValue);
+      localStorage.setItem('apellido', nombreValue);
+      window.location.reload();
+    }
   }
 
   const handleChangeName = (event, input) =>{
@@ -68,6 +65,13 @@ const Login = props =>{
       setApellidoValue(event.target.value);
     }
   }
+
+  const handleLogon = () => {
+    if (localStorage.getItem('nombre') != null){
+      return(<Redirect to='/juegos'> </Redirect>);
+    }
+  }
+  
 
   return (
     <div className={classes.image}>
@@ -80,7 +84,6 @@ const Login = props =>{
         </Container>
         <Typography component="h1" variant="h4" className={classes.text}>
           Yo soy!
-        
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -114,8 +117,8 @@ const Login = props =>{
             color="primary"
             className={classes.submit}
             onClick={(ev)=>handleClick(ev)}
-            component = {Link}
             to= "/juegos"
+            component = {Link}
           > Entrar
           </Button>
         </form>
@@ -123,7 +126,8 @@ const Login = props =>{
       <Box mt={8}>
       </Box>
     </Container>
-    {nombre && <Redirect to='/juegos' />}
+    {handleLogon()}
+    {/* {nombre && <Redirect to='/juegos' />} */}
     </div>
   );
 

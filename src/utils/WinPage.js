@@ -14,17 +14,21 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 
-const AlertDialogSlide = () =>{
-    const [open, setOpen] = React.useState(true);
-  
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
+const AlertDialogSlide = (props) =>{
+  let {game,lvl} = props
+  const handleText = () => {
+    
+    if(localStorage.getItem(`pointsGame${game}Lvl${lvl}`) == 30){
+      return('Ganaste!!')
+    }else{
+      return('Terminó el nivel.')
+    }
+  }
   
     return (
       <div>
         <Dialog
-          open={open}
+          open={true}
           TransitionComponent={Transition}
           keepMounted
           aria-labelledby="alert-dialog-slide-title"
@@ -32,8 +36,9 @@ const AlertDialogSlide = () =>{
         >
           <DialogTitle id="alert-dialog-slide-title">{"FELICITACIONES!"}</DialogTitle>
           <DialogContent>
+            
             <DialogContentText id="alert-dialog-slide-description">
-              Muy Bien! Ganaste!
+            {handleText()}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -44,6 +49,7 @@ const AlertDialogSlide = () =>{
             </Button>
           </DialogActions>
         </Dialog>
+        {localStorage.setItem(`pointsGame${game}Lvl${lvl}`,0)}
       </div>
     );
   }

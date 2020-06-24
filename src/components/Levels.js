@@ -4,12 +4,10 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
 
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 
-import Nav from './Nav'
 import n1 from '../media/level1.png'
 import n2 from '../media/level2.png'
 import n3 from '../media/level3.png'
@@ -38,35 +36,32 @@ const useStyles = makeStyles({
   }
 });
 
-const Levels = () =>{
+const renderRedirect = () => {
+  if(!localStorage.getItem('nombre')){
+    return(<Redirect to='/'></Redirect>)
+  }
+}
+
+const handleGame = () => {
+  const juego = localStorage.getItem('idJuego');
+  return(`/juego${juego}`);
+}
+
+const handleClick = (idLvl) => {
+  localStorage.setItem('idLvl', idLvl)
+}
+
+
+
+const Levels = (props) =>{
     
     const classes = useStyles();
-  /*
-    return (
-      <div className={classes.container}>
-        <Grid container className={classes.root} spacing={2}>
-          <Grid item xs={12}>
-            <Grid container justify="center" spacing={10}>
-              
-                <Grid key={4} item>
-                  <img src={n1} style={{width:"200px",cursor:"pointer"}} alt="Previo"/>
-                </Grid>
-                <Grid key={4} item>
-                  <img src={n2} style={{width:"200px",cursor:"pointer"}} alt="Previo"/>
-                </Grid>
-                <Grid key={4} item>
-                  <img src={n3} style={{width:"200px",cursor:"pointer"}} alt="Previo"/>
-                </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </div>
-    );*/
+
     return(
             <div className={classes.container}>
       <Grid container className= {classes.grid}>
         <Card className={classes.card} >
-        <Link to='/nivel1' style={{ textDecoration: 'none' }}>
+        <Link onClick={()=>{handleClick(1)}} to={handleGame()} style={{ textDecoration: 'none' }}>
 
           <CardActionArea style={{minWidth: "200px"}}>
             <CardMedia
@@ -81,7 +76,7 @@ const Levels = () =>{
         </Card>
         
         <Card className={classes.card}>
-        <Link to='/nivel2' style={{ textDecoration: 'none' }}>
+        <Link onClick={()=>{handleClick(2)}} to={handleGame()} style={{ textDecoration: 'none' }}>
             <CardActionArea style={{minWidth: "200px"}}>
               <CardMedia
                 className={classes.media}
@@ -95,7 +90,7 @@ const Levels = () =>{
           </Card>
 
           <Card className={classes.card}>
-            <Link to='/nivel3' style={{ textDecoration: 'none' }}>            
+            <Link onClick={()=>{handleClick(3)}} to={handleGame()} style={{ textDecoration: 'none' }}>            
                 <CardActionArea style={{minWidth: "200px"}}>
                   <CardMedia
                     className={classes.media}
@@ -107,12 +102,10 @@ const Levels = () =>{
                 </CardActionArea>
             </Link>
 
-                
           </Card>
 
-
-
       </Grid>
+      {renderRedirect()}
         </div>
     )
 }

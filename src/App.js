@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Main.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './components/Login';
@@ -10,40 +10,28 @@ import Game2 from './components/game2/Game2';
 import Game3 from './components/game3/Game3';
 import 'fontsource-roboto';
 
-
-
-
-
-
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const App = ()=> {
-  const [nombre, setNombre] = useState("");
-  const [apellido, setApellido] = useState("");
-  const [topic, setTopic] = useState("");
 
   return (
 
     
     <Router>
       <div className="App">
-        <Nav nombre={nombre}/>
+      <Nav/>
         <Switch>
-          <Route path="/" exact component={() => <Login nombre={nombre} setNombre={setNombre}
-          apellido={apellido} setApellido={setApellido}/>} />
+          <Route path="/" exact component={() => <Login/>} />
 
-          <Route path="/juegos" exact component={()=> <Games nombre={nombre} setTopic={setTopic} />}/>
+          <Route path="/juegos" exact component={()=> <Games />}/>
 
-          <Route path="/niveles" exact component={() => <Levels topic={topic} />}/>
+          <Route path="/niveles" exact component={() => <Levels />}/>
 
-          <Route path="/nivel1" exact component={() => <Game1></Game1> }/>
+          <Route path="/juego1" exact component={() => <Game1></Game1> }/>
 
-          <Route path="/nivel2" exact component={() => <Game2></Game2> }/>
+          <Route path="/juego2" exact component={() => <Game2></Game2> }/>
 
-          <Route path="/nivel3" exact component={() => <Game3></Game3> }/>
-
-
-
+          <Route path="/juego3" exact component={() => <Game3></Game3> }/>
         </Switch>
       </div>
     </Router>
