@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 
 const Nav = ()=>{
     const classes = useStyles();
-    const nombre = localStorage.getItem('nombre');
+    const nombre = localStorage.getItem('name');
     const handleClick = () => {
         localStorage.removeItem('nombre');
         window.location.reload();  

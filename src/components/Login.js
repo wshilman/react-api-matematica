@@ -8,6 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useState } from 'react';
+import ApiRest from "../services/ApiRest";
+import Alert from "../services/Alert";
+import History  from '../services/History';
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -41,39 +45,66 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+const isComplete = (value)=>{
+  return value && value.trim().length;
+}
 
 const Login = props =>{
-  const [nombreValue, setNombreValue] = useState("");
-  const [apellidoValue, setApellidoValue] = useState("");
-
+  const [name, setName] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [classroom, setClassroom] = useState("");
+  const [login, setLogin] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
   const classes = useStyles();
 
   const handleClick = event =>{
     event.preventDefault();
-    if (nombreValue != null && nombreValue !=''){
-      localStorage.setItem('nombre', nombreValue);
-      localStorage.setItem('apellido', nombreValue);
-      window.location.reload();
+    if (isComplete(name) && isComplete(lastname) && isComplete(classroom)){
+      let data = {name,lastname,classroom};
+      
+      ApiRest.login(data)
+      .then(response => {
+        localStorage.setItem('name', name);
+        localStorage.setItem('lastname', lastname);
+        localStorage.setItem('classroom', classroom);
+        console.log(response.data);
+        setLogin(true);
+      })
+      .catch(e => {
+        Alert.error({message:`Oops intenta de nuevo`});
+        console.error(e);
+      });
+    }else{
+      let errors = [];
+      if(!isComplete(name)){
+        errors.push("tu nombre");
+      }else if(!isComplete(lastname)){
+        errors.push("tu apellido");
+      }else if(!isComplete(classroom)){
+        errors.push("el salon");
+      }
+      Alert.error({message: errors.split("\n") });
     }
   }
 
-  const handleChangeName = (event, input) =>{
-    if (input === "nombre") {
-    setNombreValue(event.target.value);
-      
-    }else{
-      setApellidoValue(event.target.value);
+  const handleChangeValue = (event, input) =>{
+    if (input === "name") {
+      setName(event.target.value);
+    }else if(input === "lastname" ){
+      setLastname(event.target.value);
+    }else if(input === "classroom"){
+      setClassroom(event.target.value);
     }
   }
 
   const handleLogon = () => {
-    if (localStorage.getItem('nombre') != null){
-      return(<Redirect to='/juegos'> </Redirect>);
-    }
+    History.push('/juegos');
+    return(<Redirect to='/juegos'> </Redirect>);
   }
   
 
-  return (
+  return ( login ?( handleLogon() ):(
     <div className={classes.image}>
     <Container component="main" maxWidth="sm">
       <CssBaseline />
@@ -91,24 +122,36 @@ const Login = props =>{
             margin="normal"
             required
             fullWidth
-            id="nombre"
+            id="name"
             label="Nombre"
-            name="nombre"
+            name="name"
             autoFocus
-            onChange={(event) =>handleChangeName(event, "nombre")}
+            onChange={(event) =>handleChangeValue(event, "name")}
             className={classes.input}
-            value={nombreValue}
+            value={name}
           />
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            name="apellido"
+            name="lastname"
             label="Apellido"
-            id="apellido"
-            onChange={(event) =>handleChangeName(event, "apellido")}
-            value={apellidoValue}
+            id="lastname"
+            onChange={(event) =>handleChangeValue(event, "lastname")}
+            value={lastname}
+            className={classes.input}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="classroom"
+            label="Salon"
+            id="classroom"
+            onChange={(event) =>handleChangeValue(event, "classroom")}
+            value={classroom}
             className={classes.input}
           />
           <Button
@@ -126,10 +169,8 @@ const Login = props =>{
       <Box mt={8}>
       </Box>
     </Container>
-    {handleLogon()}
-    {/* {nombre && <Redirect to='/juegos' />} */}
     </div>
-  );
+  ));
 
 }
 

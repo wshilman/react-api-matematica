@@ -10,6 +10,8 @@ import { Redirect } from 'react-router-dom';
 import suma from '../media/suma.png'
 import resta from '../media/resta.png'
 import division from '../media/division.png'
+import History from '../services/History';
+
 
 const useStyles = makeStyles({
   card: {
@@ -44,11 +46,13 @@ const Games = props =>{
   }
 
   const renderRedirect = () => {
-    if(!localStorage.getItem('nombre')){
+    if(!localStorage.getItem('name')){
       return(<Redirect to='/'></Redirect>)
     }
 
     if(redirect){
+      History.push('/niveles');
+      console.log(History);
       return(<Redirect to='/niveles'></Redirect>)
     }
   }

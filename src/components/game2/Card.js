@@ -5,6 +5,9 @@ import { useDrop } from 'react-dnd';
 import correct from '../../media/correct.png'
 import './Game2.css';
 
+import Alert from "../../services/Alert";
+import pingImage from '../../media/cerdito.png';
+import appleImage from '../../media/apple2.png';
 
 const ItemTypes = {
     SOURCE: 'source',
@@ -37,7 +40,14 @@ const Source = props => {
             opacity: isDragging ? 0.5 : 1,
             cursor:"move"}}>
                 {handleState()}
-            <h1 style={{marginTop:"40%"}}>{props.text}</h1>
+                <div>
+                    <div className="appleMountContainer">
+                        <div className="mount">
+                            {props.text}
+                        </div>
+                    </div>
+                    <img src={appleImage} class="img"/>
+                </div>
         </div>
     )
 }
@@ -57,16 +67,23 @@ const Target = props => {
             }
     }
     
+    //<h1 style={{marginTop:"40%",color:isOver ? "green" : "black"}}>{value}</h1>
     const setCard = (isOver) => {
         if(!passed){
             return(
-                <h1 style={{marginTop:"40%",
-            color:isOver ? "green" : "black"}}>{value}</h1>
+                <div className="containerPig">
+                    <div className="containerMount">
+                        <div className="mount">
+                            {value}  
+                        </div>
+                    </div>
+                    <img src={pingImage} class="img"/>
+                </div>
             )
             
         }else{
             return(
-                <img alt='Imagen Correcto' className="img" src={correct}></img>
+                <img alt='Imagen Correcto' className="img"  src={correct}></img>
                 // <h1 style={{marginTop:"40%",
                 //     color: "black",
                 //     opacity:0.1}}>{value}</h1>

@@ -1,5 +1,5 @@
 import React from 'react'
-import './Game1.css';
+import './Board.css';
 import { Grid } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -30,10 +30,10 @@ const useStyles = makeStyles({
   });
 const Board = props => {
     const classes = useStyles();
-
+    const style = props.style??{};
     return (
-        <div className={classes.board}>
-            <Grid container className={classes.container}>
+        <div className={classes.board} >
+            <Grid container className={classes.container} style={style}>
                 {props.children}
             </Grid>
         </div>

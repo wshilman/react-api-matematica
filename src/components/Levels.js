@@ -7,10 +7,14 @@ import CardMedia from '@material-ui/core/CardMedia';
 
 import { Link, Redirect} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
+import History  from '../services/History';
+
+
 
 import n1 from '../media/level1.png'
 import n2 from '../media/level2.png'
 import n3 from '../media/level3.png'
+
 
 
 const useStyles = makeStyles({
@@ -37,7 +41,7 @@ const useStyles = makeStyles({
 });
 
 const renderRedirect = () => {
-  if(!localStorage.getItem('nombre')){
+  if(!localStorage.getItem('name')){
     return(<Redirect to='/'></Redirect>)
   }
 }

@@ -12,6 +12,7 @@ import './Game1.css';
 import iconStale from '../../media/stale.png';
 import iconOk from '../../media/ok.png';
 import iconError from '../../media/error.png';
+import Alert from "../../services/Alert";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,7 +45,7 @@ const Quiz = props => {
     progress,
     lvl
   } = props.pack
-  
+  const finishProgress = props.finishProgress;
   const classes = useStyles();
   const [value, setValue] = React.useState('');
   const [error, setError] = React.useState(false);
@@ -86,6 +87,13 @@ const Quiz = props => {
       setSendRta(true);
     } else {
       setError(true);
+    }
+    console.log("Progress ",progress);
+    if(progress === finishProgress){
+      Alert.finishLevel({
+        next: lvl,
+
+      });
     }
   };
 
@@ -133,25 +141,6 @@ const Quiz = props => {
      
     </Card>
   )
-
-  /*
-  return (
-      <form onSubmit={handleSubmit}>
-        <FormControl component="fieldset" error={error} className={classes.formControl} style={{border: won? '5px double green': error?'5px double red':'5px double blue'}}>
-          <FormLabel component="legend">{quest}</FormLabel>
-          <RadioGroup aria-label="quiz" name="quiz" value={value} onChange={handleRadioChange} style={{marginTop:10}}>
-            <FormControlLabel value={right === 1 ? "right": "bad1"} control={<Radio />} label={r1} />
-            <FormControlLabel value={right === 2 ? "right": "bad2"}  control={<Radio />} label={r2} />
-            <FormControlLabel value={right === 3 ? "right": "bad3"}  control={<Radio />} label={r3} />
-            <FormControlLabel value={right === 4 ? "right": "bad4"}  control={<Radio />} label={r4} />
-          </RadioGroup>
-          <FormHelperText>{helperText}</FormHelperText>
-          <Button type="submit" variant="outlined" color="primary" className={classes.button}>
-            Enviar Respuesta
-          </Button>
-        </FormControl>
-      </form>
-  );*/
 
   
 }

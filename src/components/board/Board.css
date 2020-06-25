@@ -1,0 +1,23 @@
+.board3 {
+    height: 100%;
+    width: 100%;
+    background-color:rgba(158, 158, 158, 0.22);
+    margin-top: 25px;
+    position: relative;
+}
+
+.container {
+    height: 50%;
+    width: 70%;
+    margin: 0 auto;
+}
+
+
+.grid {
+
+    display:"flex";
+    align-items:"center";
+    height:"100%";
+    width:"100%"
+
+}

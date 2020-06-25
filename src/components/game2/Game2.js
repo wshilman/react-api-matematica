@@ -4,6 +4,10 @@ import WinPage from '../../utils/WinPage'
 
 import { Source , Target } from './Card'
 import { useState }from 'react';
+import CardDeck from 'react-bootstrap/CardDeck'
+import Grid from '@material-ui/core/Grid';
+
+
 
 
 
@@ -22,13 +26,29 @@ const Game2 = () => {
 
     return (
         <Board target={target} progress={progress}>
-            <Source class='source1' text='7 + 6' id="13" setTarget={setTarget}></Source>
-            <Source class='source2' text='4 - 9' id="-5" setTarget={setTarget}></Source>
-            <Source class='source3' text='9 - 4' id="5" setTarget={setTarget} ></Source>
-            <Target class='target1' text='-5' pack={targetProps}></Target>
-            <Target class='target2' text='5' pack={targetProps}></Target>
-            <Target class='target3' text='13'  pack={targetProps}></Target>
-            {progress==3 ? <WinPage></WinPage> : null}
+            <CardDeck>
+                <Grid container spacing={12}>
+                    <Grid item xs={6}>
+                        <Source class='source1 source' text='7 + 6' id="13" setTarget={setTarget}></Source>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Target class=' containerPig target' text='-5' pack={targetProps}></Target>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Source class='source2 source' text='4 - 9' id="-5" setTarget={setTarget}></Source>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Target class=' containerPig target' text='5' pack={targetProps}></Target>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Source class='source3 source' text='9 - 4' id="5" setTarget={setTarget} ></Source>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Target class=' containerPig target' text='13'  pack={targetProps}></Target>
+                    </Grid>
+                </Grid>
+                {progress==3 ? <WinPage></WinPage> : null}
+            </CardDeck>
         </Board>
     )
 }

@@ -1,54 +1,52 @@
 .board {
     height: 100%;
     width: 100%;
-    background-color: #1876D2;
     margin-top: 25px;
     position: relative;
 }
 
 .container {
-    height: 50%;
-    width: 70%;
+    height: 100%;
+    width: 100%;
     margin: 0 auto;
+}
+
+.source{
+    width: 150px!important;
+    height: 160px!important;
+}
+
+.appleMountContainer{
+    position: absolute;
+    left: 5px;
 }
 
 .source1 {
     height: 100px;
     width: auto;
-    background-color: seagreen;
     border-radius: 20px;
-    position: absolute;
-    margin: 4%;
-    left: 0;
 }
 
 .source2 {
     height: 100px;
     width: auto;
-    background-color: seagreen;
     border-radius: 20px;
-    position: absolute;
-    margin: 4%;
-    left: 0;
-    bottom: 0;
 }
 
 .source3 {
     height: 100px;
     width: auto;
-    background-color: seagreen;
     border-radius: 20px;
-    position: absolute;
-    margin: 4%;
-    left: 0;
-    bottom: 40%;
 }
 
 
+.target {
+    width: 300px!important;
+    height: 200px!important;
+}
+
 .target1 {
-    height: 100px;
-    width: 70px;
-    background-color:rgba(122, 35, 194, 0.747);
+    /*background-color:rgba(122, 35, 194, 0.747);*/
     border-radius: 20px;
     position: absolute;
     margin: 4%;
@@ -56,9 +54,7 @@
     right: 0;
 }
 .target2 {
-    height: 100px;
-    width: 70px;
-    background-color: rgba(122, 35, 194, 0.747);
+    /*background-color: rgba(122, 35, 194, 0.747);*/
     border-radius: 20px;
     position: absolute;
     margin: 4%;
@@ -66,9 +62,7 @@
     bottom: 0;
 }
 .target3 {
-    height: 100px;
-    width: 70px;
-    background-color: rgba(122, 35, 194, 0.747);
+    /*background-color: rgba(122, 35, 194, 0.747);*/
     border-radius: 20px;
     position: absolute;
     margin: 4%;
@@ -78,7 +72,33 @@
 }
 
 .img {
-    margin-top: 50%;
-    height: 30px;
+    width: 100%;
+}
+
+.containerPig {
+    width: 300px;
+    float: right;
+}
+
+
+.containerMount {
     width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 100px;
+}
+
+.mount {
+    position: relative;
+    top: 65px;
+    width: 100px;
+    height: 50px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    background: #ffffff85;
+    vertical-align: middle;
+    line-height: 50px;
+    text-align: center;
+    font-size: xx-large;
 }

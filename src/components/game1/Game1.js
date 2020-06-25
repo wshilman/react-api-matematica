@@ -1,15 +1,14 @@
 import React from 'react';
-import Board from './Board';
+import Board from '../board/Board';
 import Quiz from './Quiz';
 import FooterNav from '../FooterNav';
 import './Game1.css';
 import { useState, useEffect } from 'react';
 import WinPage from '../../utils/WinPage'
-import CardDeck from 'react-bootstrap/CardDeck'
-import Grid from '@material-ui/core/Grid';
-import { Redirect, Link } from 'react-router-dom';
+
 
 import CardDeck from 'react-bootstrap/CardDeck'
+import { Redirect, Link } from 'react-router-dom';
 
 const Game1 = () => {
     const [ progress, setProgress] = useState(0);
@@ -173,7 +172,7 @@ const Game1 = () => {
     
     
     const renderRedirect = () => {
-        if(!localStorage.getItem('nombre')){
+        if(!localStorage.getItem('name')){
           return(<Redirect to='/'></Redirect>)
         }
       }
@@ -185,25 +184,14 @@ const Game1 = () => {
         <Board>
             <CardDeck>
                 {/* {console.log(data)} */}
-                <Quiz pack={packs.pack1}>
+                <Quiz pack={packs.pack1} finishProgress={2}>
                 </Quiz>
-                <Quiz pack={packs.pack2}>
+                <Quiz pack={packs.pack2} finishProgress={2}>
                 </Quiz>
-                <Quiz pack={packs.pack3}>
+                <Quiz pack={packs.pack3} finishProgress={2}>
                 </Quiz>
-            {progress==3 ? <WinPage game='1' lvl='1'></WinPage> : null}
             </CardDeck>
             <FooterNav/>
-            <Grid container spacing={3} style={{paddingTop:"20px"}}>
-                <Grid item xs={6}>
-                    <Link to='/niveles'>
-                        <img src={iconPrev} style={{width:"80px",cursor:"pointer"}} alt="Previo"/>
-                    </Link>
-                </Grid>
-                <Grid item xs={6}>
-                <img src={iconNext} style={{width:"80px",cursor:"pointer"}} alt="Proximo"/>
-                </Grid>
-            </Grid>
             {renderRedirect()}
         </Board>
     )
