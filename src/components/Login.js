@@ -65,11 +65,17 @@ const Login = props =>{
       
       ApiRest.login(data)
       .then(response => {
-        localStorage.setItem('name', name);
-        localStorage.setItem('lastname', lastname);
-        localStorage.setItem('classroom', classroom);
-        console.log(response.data);
-        setLogin(true);
+        //localStorage.setItem('id', );
+        console.log("LOGIN RESPONSE",response);
+        localStorage.setItem("id",response.data._id);
+        ApiRest.startGame(response.data._id).then(play=>{
+          localStorage.setItem('play', play);
+          localStorage.setItem('name', name);
+          localStorage.setItem('lastname', lastname);
+          localStorage.setItem('classroom', classroom);
+          setLogin(true);
+        });
+        
       })
       .catch(e => {
         Alert.error({message:`Oops intenta de nuevo`});
@@ -114,7 +120,7 @@ const Login = props =>{
           <img height="200" width="300" alt = "icono" src={require("../media/matematicas.png")}></img>
         </Container>
         <Typography component="h1" variant="h4" className={classes.text}>
-          Yo soy!
+          Hola! Complet&aacute; tus datos.
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
