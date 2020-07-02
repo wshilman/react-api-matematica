@@ -26,3 +26,44 @@
     width:"100%"
 
 }
+
+.card-deck{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.heartColors{
+    display: -webkit-inline-box!important;
+    width: 100%;
+}
+
+.optionSelect{
+    display: block!important;
+    margin: 0px!important;
+}
+
+.colorHeart{
+    width:140px;
+    cursor:"pointer";
+}
+
+.whiteHeart{
+    width:100px;
+    cursor:"pointer";
+}
+
+
+
+.textHeart{
+    top: 85px;
+    position: relative;
+    font-size: xx-large;
+    line-height: 0px;
+}
+
+.textHeartWhite{
+    top: 70px;
+    position: relative;
+    font-size: large;
+    line-height: 0px;
+}

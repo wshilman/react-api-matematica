@@ -7,6 +7,9 @@ class ApiRest {
     logout({nickname}) {
         return http.post("/session/logout",{nickname});
     }
+    startGame(id){
+        //return http.get("/tutorials");
+    }
     getAll() {
         return http.get("/tutorials");
     }

@@ -146,7 +146,7 @@ const Game3 = () => {
                 },
                 pack3 : {
                     n:3,
-                    quest:"25 / 5",
+                    quest:"25 / 5",   
                     n1:25,
                     operation:"/",
                     n2:5,
@@ -184,11 +184,7 @@ const Game3 = () => {
         <Board>
             <CardDeck>
                 {/* {console.log(data)} */}
-                <Quiz pack={packs.pack1} finishProgress={2}>
-                </Quiz>
-                <Quiz pack={packs.pack2} finishProgress={2}>
-                </Quiz>
-                <Quiz pack={packs.pack3} finishProgress={2}>
+                <Quiz pack={packs.pack1} >
                 </Quiz>
             </CardDeck>
             <FooterNav/>

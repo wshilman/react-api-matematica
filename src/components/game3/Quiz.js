@@ -5,8 +5,10 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 
-import Card from 'react-bootstrap/Card'
-import CardDeck from 'react-bootstrap/CardDeck'
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+
+
 import './Game3.css';
 
 import iconHeart0 from '../../media/heart0.png';
@@ -54,16 +56,127 @@ const Quiz = props => {
   const finishProgress = props.finishProgress;
   const classes = useStyles();
   const [value, setValue] = React.useState('');
+  const [colorChoosed, setColorChoosed] = React.useState(-1);
+
+  const iconOperation = {
+      "SUMA": " + ",
+      "MULTIPLICACION": " x ",
+      "RESTA": " - ",
+  };
+
+  const handlerSelectColor = (value,index)=>{
+    console.log("handlerSelectColor",value,index);
+    setColorChoosed(value);
+  };
+
+  const colors = [iconHeart1,iconHeart2,iconHeart3,iconHeart4];
+  const options = [23,45,64,87];
+  const [operations, setOperations] = React.useState([{
+    numbers:[3,23],
+    operation:"RESTA",
+    rta:23,
+    id:1,
+  },{
+      numbers:[33,45],
+      operation:"SUMA",
+      rta:45,
+      id:2,
+  },{
+      numbers:[3,87],
+      operation:"MULTIPLICACION",
+      rta:87,
+      id:3,
+  },{
+      numbers:[3,64],
+      operation:"SUMA",
+      rta:64,
+      id:4,
+  },{
+      numbers:[43,23],
+      operation:"SUMA",
+      rta:23,
+      id:5,
+  },{
+      numbers:[63,45],
+      operation:"SUMA",
+      rta:45,
+      id:6,
+  },{
+      numbers:[21,87],
+      operation:"SUMA",
+      rta:87,
+      id:7,
+  },{
+      numbers:[35,64],
+      operation:"SUMA",
+      rta:64,
+      id:8,
+  },{
+    numbers:[3,23],
+    operation:"SUMA",
+    rta:23,
+    id:9,
+  },{
+      numbers:[33,45],
+      operation:"SUMA",
+      rta:45,
+      id:10,
+  },{
+      numbers:[3,87],
+      operation:"SUMA",
+      rta:87,
+      id:11,
+  },{
+      numbers:[3,64],
+      operation:"SUMA",
+      rta:64,
+      id:12,
+  },{
+      numbers:[3,23],
+      operation:"SUMA",
+      rta:23,
+      id:13,
+  },{
+      numbers:[33,45],
+      operation:"SUMA",
+      rta:45,
+      id:14,
+  },{
+      numbers:[3,87],
+      operation:"SUMA",
+      rta:87,
+      id:15,
+  },{
+      numbers:[3,64],
+      operation:"SUMA",
+      rta:64,
+      id:16,
+  }]);
+  const newOptions = (id,valueRta,operations)=>{
+        let index = -1;
+        let i = 0, tam = operations.length;
+        while(index==-1 && i<tam){
+            console.log(operations[i],id);
+            if(operations[i].id == id){
+                index = i;
+            }
+            i++;
+        }
+        operations[index].valueRta = valueRta;
+        operations[index].colorIndex = options.indexOf(valueRta);
+        console.log("change rta",operations[index]);
+        return operations;
+  }
+  const setOption = (id,valueRta)=>{
+    let options = newOptions(id,valueRta,operations);
+    setOperations(options);
+  }
+
   const [error, setError] = React.useState(false);
   const [won, setWon] = React.useState(false);
   const [sendRta, setSendRta] = React.useState(false);
 
 
-  const handleRadioChange = (event) => {
-    // localStorage.clear()
-    setValue(event.target.value);
-    setError(false);
-  };
 
   const handlePoints = (points) => {
     // pointsGame1Lvl1
@@ -103,49 +216,100 @@ const Quiz = props => {
     }
   };
 
+  
+  function FormRowColor(props){
+    const valueChoosed = props.colorChoosed??false;
+    const [value, setValue] = React.useState(valueChoosed);
+    const rows = props.rows;
+    const handlerSelectColor = props.handlerSelectColor;
+    
+    console.log("valueChoosed",valueChoosed);
+    const handleChange = (event) => {
+      setValue(event.target.value);
+    };
+
+    const handlerChooseOption = (value,index)=>{
+        console.log("Change options ",value);
+        setValue(value);
+        handlerSelectColor(value,index);
+    };
+
+    const listItems = rows.map((number,index) =>
+        <Grid item xs={3}>
+            <Paper className={classes.paper} onClick={()=>{handlerChooseOption(number,index)}} >
+                <div><span className="textHeart">{number}</span></div>
+                <img src={colors[index]} className="colorHeart"  alt="corazon"/>
+                <FormControlLabel className="optionSelect" value={number} control={<Radio checked={value == number}/>} label="" />
+            </Paper>
+        </Grid>
+    );
+    return (
+        <React.Fragment>
+          <RadioGroup className="heartColors" aria-label="gender" name="gender1" value={value} onChange={handleChange}>
+            {listItems}
+          </RadioGroup>
+        </React.Fragment>
+      );
+  }
+
+  function FormRow(props) {
+    const valueChoosed = props.colorChoosed;
+    //const options = props.options;
+    const [rows, setRows] = React.useState(props.rows);
+
+    const setOption = (id,valueChoosed)=>{
+        let newRows = newOptions(id,valueChoosed,rows);
+        console.log("newRows",newRows);
+        setRows(newRows);
+        props.setOption(id,valueChoosed);
+    }
+    const iconHeart = iconHeart0;
+    console.log("rows",rows);
+    rows.forEach(v=>{
+        console.log("ROW ",v,v.colorIndex,colors[v.colorIndex]);
+    });
+    const listItems = rows.map((config,index) =>
+        <Grid item xs={3}>
+            <Paper className={classes.paper} onClick={()=>{setOption(config.id,valueChoosed)}}>
+                <div><span className="textHeartWhite">{config.numbers[0]+iconOperation[config.operation]+config.numbers[1]}</span></div>
+                <img src={config.colorIndex!=null?colors[config.colorIndex]:iconHeart} className="colorHeart"  alt="corazon"/>
+            </Paper>
+        </Grid>
+    );
+
+    return (
+      <React.Fragment>
+            {listItems}
+      </React.Fragment>
+    );
+  }
+  
+
+  
   return (
-    <Card style={{maxHeight: "450px"}} border={ won?'success': error?"danger":"light"} >
+    <div style={{minHeight: "450px"}} >
       {props && 
         <form onSubmit={handleSubmit}>
-          <Card.Img variant="top" style={{width: "50px",paddingTop:"10px"}} src={ won?iconOk: error?iconError:iconStale} />
-          <Card.Body>
-            <Card.Title>
-              <CardDeck>
-                <Card style={{ width: '18rem' }}>
-                  <Card.Body>
-                    {n1}
-                  </Card.Body>
-                </Card>
-                <Card style={{ width: '18rem' }}>
-                  <Card.Body>
-                    {operation}
-                  </Card.Body>
-                </Card>
-                <Card style={{ width: '18rem' }}>
-                  <Card.Body>
-                    {n2}
-                  </Card.Body>
-                </Card>
-              </CardDeck>
-            </Card.Title>
-            <Card.Text>
-            <RadioGroup aria-label="quiz" name="quiz" value={value} onChange={handleRadioChange} style={{marginTop:10}}>
-              <FormControlLabel value={right === 1 ? "right": "bad1"}  disabled={sendRta} control={<Radio />} label={r1} />
-              <FormControlLabel value={right === 2 ? "right": "bad2"}  disabled={sendRta} control={<Radio />} label={r2} />
-              <FormControlLabel value={right === 3 ? "right": "bad3"}  disabled={sendRta} control={<Radio />} label={r3} />
-              <FormControlLabel value={right === 4 ? "right": "bad4"}  disabled={sendRta} control={<Radio />} label={r4} />
-            </RadioGroup>
-
-            </Card.Text>
-          </Card.Body>
-          <Card.Footer>
-            <Button type="submit" disabled={sendRta} variant="outlined" color="primary" className={classes.button}>
-              Enviar Respuesta
-            </Button>
-          </Card.Footer>
-        </form>}
+          <Grid container spacing={1}>
+            <Grid container item xs={12} style={{marginBottom: '40px'}}>
+                <FormRowColor rows={options} handlerSelectColor={handlerSelectColor}  colorChoosed={colorChoosed}/>
+            </Grid>
+            <Grid container item xs={12} >
+                <FormRow options={options} setOption={setOption} rows={operations.slice(0,4)} colorChoosed={colorChoosed}/>
+            </Grid>
+            <Grid container item xs={12}>
+                <FormRow options={options} setOption={setOption}  rows={operations.slice(4,8)} colorChoosed={colorChoosed} />
+            </Grid>
+            <Grid container item xs={12}>
+                <FormRow options={options} setOption={setOption}  rows={operations.slice(8,12)} colorChoosed={colorChoosed} />
+            </Grid>
+            <Grid container item xs={12}>
+                <FormRow options={options} setOption={setOption}  rows={operations.slice(12,16)} colorChoosed={colorChoosed} />
+            </Grid>
+        </Grid>
+        </form>}  
      
-    </Card>
+    </div>
   )
 
   

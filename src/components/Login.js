@@ -68,13 +68,17 @@ const Login = props =>{
         //localStorage.setItem('id', );
         console.log("LOGIN RESPONSE",response);
         localStorage.setItem("id",response.data._id);
-        ApiRest.startGame(response.data._id).then(play=>{
+        localStorage.setItem('name', name);
+        localStorage.setItem('lastname', lastname);
+        localStorage.setItem('classroom', classroom);
+        setLogin(true);
+        /*ApiRest.startGame(response.data._id).then(play=>{
           localStorage.setItem('play', play);
           localStorage.setItem('name', name);
           localStorage.setItem('lastname', lastname);
           localStorage.setItem('classroom', classroom);
           setLogin(true);
-        });
+        });*/
         
       })
       .catch(e => {
