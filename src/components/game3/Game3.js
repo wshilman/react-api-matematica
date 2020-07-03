@@ -5,14 +5,24 @@ import FooterNav from '../FooterNav';
 import './Game3.css';
 import { useState, useEffect } from 'react';
 import WinPage from '../../utils/WinPage'
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import axios from 'axios';
+import Box from '@material-ui/core/Box';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Alert from "../../services/Alert";
+
+
 
 
 import CardDeck from 'react-bootstrap/CardDeck'
 import { Redirect, Link } from 'react-router-dom';
 
+
+
 const Game3 = () => {
     const [ progress, setProgress] = useState(0);
-
+    const [ data, setData] = useState([]);
     const manageData = (lvl) => {
         if (lvl === '1'){
             return({
@@ -168,25 +178,84 @@ const Game3 = () => {
     
 
     const packs = manageData(localStorage.getItem('idLvl'))
-
-    
-    
+    const nivel = localStorage.getItem('idLvl');
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        axios(
+            'http://localhost:8000/game/painting/level/'+localStorage.getItem('idLvl'),
+        ).then((result)=>{
+            console.log(result);
+            setData(result.data);
+            setLoading(loading => false);
+        }).catch(()=>{
+            
+        });
+    }, []);
+        
     const renderRedirect = () => {
         if(!localStorage.getItem('name')){
           return(<Redirect to='/'></Redirect>)
         }
       }
 
-
-
-    return (
+    
+      const handleClickCheck = ()=>{
+        console.log(data);
+        console.log();
+        let ok = 0;
+        let error = 0;
+        var totalRta = 0;
         
+        data.forEach(v=>{
+            if(v.valueRta){
+                totalRta++;
+                if(v.valueRta == v.rta){
+                    ok++;
+                }else{
+                    error++;
+                }
+            }
+            
+        });
+        let finishLevel = localStorage.getItem('idLvl')==3;
+        let puntaje = (ok*10)+"/"+(totalRta*10);
+        if(finishLevel){
+            Alert.finishLevel({puntaje});
+        }else{
+            let nextLevel =localStorage.getItem('idLvl');
+            nextLevel++;
+            Alert.finishLevel({puntaje,level:nextLevel,next:"juego3"});
+        }
+        
+      }
+
+    return (loading
+            ?
+            <div>
+                <Box width={1} maxWidth="sm" style={{ padding:"20px"}}>
+                    <LinearProgress />
+                </Box>
+            </div>
+            :
         <Board>
+            <h4 style={{marginLeft: "auto",marginRight: "auto"}}>Elige un color y pinta los corazoncitos (Nivel {nivel})</h4>
             <CardDeck>
                 {/* {console.log(data)} */}
-                <Quiz pack={packs.pack1} >
+                <Quiz pack={packs.pack1} data={data} setData={setData}>
                 </Quiz>
             </CardDeck>
+            <div style={{marginLeft: "auto",marginRight: "auto",paddingTop:20}}>
+            <Button
+                    variant="outlined"
+                    color="default"
+                    size="large"
+                    style={{marginLeft: "auto",marginRight: "auto",background: "#fde19b"}}
+                    onClick={() => handleClickCheck()}
+                >
+                    Corregir
+                </Button>
+
+            </div>
             <FooterNav/>
             {renderRedirect()}
         </Board>

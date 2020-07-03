@@ -26,6 +26,7 @@ const Game2 = () => {
 
     return (
         <Board target={target} progress={progress}>
+            <h4>Resuelve y dale de comer al cerdito</h4>
             <CardDeck>
                 <Grid container spacing={12}>
                     <Grid item xs={6}>

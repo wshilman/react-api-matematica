@@ -29,16 +29,19 @@ class Alert{
         };
         if(next){
             configAlert.confirmButtonText =  `<b>Proximo Nivel <i class="fa fa-arrow-right"></i></b>`;
+            configAlert.text = 'Tu puntaje es '+puntaje;
             configAlert.confirmButtonColor = "#4CAF50";
+
         }else{
             configAlert.title = 'Terminaste el juego!';
-            configAlert.message = 'Tu puntaje es '+puntaje;
+            configAlert.text = 'Tu puntaje es '+puntaje;
             configAlert.confirmButtonText =  `<b>Volver a jugar</b>`;
             configAlert.confirmButtonColor = "#4CAF50";
         }
         Swal.fire(configAlert).then((result) => {
             if (result.value) {
                 if(next){
+                    localStorage.setItem('idLvl',level);
                     window.location.href = "/"+next;
                 }else{
                     window.location.href = "/"+level;

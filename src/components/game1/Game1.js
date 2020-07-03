@@ -5,6 +5,10 @@ import FooterNav from '../FooterNav';
 import './Game1.css';
 import { useState, useEffect } from 'react';
 import WinPage from '../../utils/WinPage'
+import axios from 'axios';
+import Box from '@material-ui/core/Box';
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 
 
 import CardDeck from 'react-bootstrap/CardDeck'
@@ -166,6 +170,19 @@ const Game1 = () => {
         
     }
     
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        axios(
+          'http://localhost:8000/game/multiple/level/'+localStorage.getItem('idLvl'),
+        ).then((result)=>{
+          console.log(result);
+            setData(result.data);
+            setLoading(loading => false);
+        }).catch(()=>{
+  
+        });
+      }, []);
 
     const packs = manageData(localStorage.getItem('idLvl'))
 
@@ -179,9 +196,14 @@ const Game1 = () => {
 
 
 
-    return (
-        
-        <Board>
+    return (loading
+            ?
+            <div>
+                <Box width={1} maxWidth="sm" style={{ padding:"20px"}}>
+                    <LinearProgress />
+                </Box>
+            </div>
+            :<Board>
             <CardDeck>
                 {/* {console.log(data)} */}
                 <Quiz pack={packs.pack1} finishProgress={2}>

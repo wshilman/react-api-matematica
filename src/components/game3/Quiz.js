@@ -57,6 +57,7 @@ const Quiz = props => {
   const classes = useStyles();
   const [value, setValue] = React.useState('');
   const [colorChoosed, setColorChoosed] = React.useState(-1);
+  const setData = props.setData;
 
   const iconOperation = {
       "SUMA": " + ",
@@ -71,87 +72,10 @@ const Quiz = props => {
 
   const colors = [iconHeart1,iconHeart2,iconHeart3,iconHeart4];
   const options = [23,45,64,87];
-  const [operations, setOperations] = React.useState([{
-    numbers:[3,23],
-    operation:"RESTA",
-    rta:23,
-    id:1,
-  },{
-      numbers:[33,45],
-      operation:"SUMA",
-      rta:45,
-      id:2,
-  },{
-      numbers:[3,87],
-      operation:"MULTIPLICACION",
-      rta:87,
-      id:3,
-  },{
-      numbers:[3,64],
-      operation:"SUMA",
-      rta:64,
-      id:4,
-  },{
-      numbers:[43,23],
-      operation:"SUMA",
-      rta:23,
-      id:5,
-  },{
-      numbers:[63,45],
-      operation:"SUMA",
-      rta:45,
-      id:6,
-  },{
-      numbers:[21,87],
-      operation:"SUMA",
-      rta:87,
-      id:7,
-  },{
-      numbers:[35,64],
-      operation:"SUMA",
-      rta:64,
-      id:8,
-  },{
-    numbers:[3,23],
-    operation:"SUMA",
-    rta:23,
-    id:9,
-  },{
-      numbers:[33,45],
-      operation:"SUMA",
-      rta:45,
-      id:10,
-  },{
-      numbers:[3,87],
-      operation:"SUMA",
-      rta:87,
-      id:11,
-  },{
-      numbers:[3,64],
-      operation:"SUMA",
-      rta:64,
-      id:12,
-  },{
-      numbers:[3,23],
-      operation:"SUMA",
-      rta:23,
-      id:13,
-  },{
-      numbers:[33,45],
-      operation:"SUMA",
-      rta:45,
-      id:14,
-  },{
-      numbers:[3,87],
-      operation:"SUMA",
-      rta:87,
-      id:15,
-  },{
-      numbers:[3,64],
-      operation:"SUMA",
-      rta:64,
-      id:16,
-  }]);
+  const data = props.data;
+
+  const [operations, setOperations] = React.useState(data);
+
   const newOptions = (id,valueRta,operations)=>{
         let index = -1;
         let i = 0, tam = operations.length;
@@ -170,6 +94,7 @@ const Quiz = props => {
   const setOption = (id,valueRta)=>{
     let options = newOptions(id,valueRta,operations);
     setOperations(options);
+    setData(options);
   }
 
   const [error, setError] = React.useState(false);
@@ -236,7 +161,7 @@ const Quiz = props => {
 
     const listItems = rows.map((number,index) =>
         <Grid item xs={3}>
-            <Paper className={classes.paper} onClick={()=>{handlerChooseOption(number,index)}} >
+            <Paper className="containerHeartColor" onClick={()=>{handlerChooseOption(number,index)}} >
                 <div><span className="textHeart">{number}</span></div>
                 <img src={colors[index]} className="colorHeart"  alt="corazon"/>
                 <FormControlLabel className="optionSelect" value={number} control={<Radio checked={value == number}/>} label="" />
@@ -255,31 +180,34 @@ const Quiz = props => {
   function FormRow(props) {
     const valueChoosed = props.colorChoosed;
     //const options = props.options;
-    const [rows, setRows] = React.useState(props.rows);
+    let rowsObj = {};
+    props.rows.forEach((v,index)=>{
+        rowsObj[v.id] = v;
+    });
+    const [rows, setRows] = React.useState(rowsObj);
 
     const setOption = (id,valueChoosed)=>{
-        let newRows = newOptions(id,valueChoosed,rows);
-        console.log("newRows",newRows);
-        setRows(newRows);
+        let newRows = rows[id];
+        newRows.colorIndex = 3;
+
+        setRows({
+            ...rows,
+            [id]: newRows
+          });
+        
         props.setOption(id,valueChoosed);
     }
-    const iconHeart = iconHeart0;
-    console.log("rows",rows);
-    rows.forEach(v=>{
-        console.log("ROW ",v,v.colorIndex,colors[v.colorIndex]);
-    });
-    const listItems = rows.map((config,index) =>
-        <Grid item xs={3}>
-            <Paper className={classes.paper} onClick={()=>{setOption(config.id,valueChoosed)}}>
-                <div><span className="textHeartWhite">{config.numbers[0]+iconOperation[config.operation]+config.numbers[1]}</span></div>
-                <img src={config.colorIndex!=null?colors[config.colorIndex]:iconHeart} className="colorHeart"  alt="corazon"/>
-            </Paper>
-        </Grid>
-    );
 
     return (
       <React.Fragment>
-            {listItems}
+            {Object.keys(rows).map((id) =>
+                <Grid item xs={3}>
+                    <Paper className="containerHeart" onClick={()=>{setOption(id,valueChoosed)}}>
+                        <div className="containerOperation"><span className="textHeartWhite">{rows[id].numbers[0]+iconOperation[rows[id].operation]+rows[id].numbers[1]}</span></div>
+                        <img src={rows[id].colorIndex!=null?colors[rows[id].colorIndex]:iconHeart0} className="colorHeart"  alt="corazon"/>
+                    </Paper>
+                </Grid>
+            )}
       </React.Fragment>
     );
   }
@@ -291,7 +219,7 @@ const Quiz = props => {
       {props && 
         <form onSubmit={handleSubmit}>
           <Grid container spacing={1}>
-            <Grid container item xs={12} style={{marginBottom: '40px'}}>
+            <Grid container item xs={12} style={{marginBottom: '20px'}}>
                 <FormRowColor rows={options} handlerSelectColor={handlerSelectColor}  colorChoosed={colorChoosed}/>
             </Grid>
             <Grid container item xs={12} >
@@ -302,9 +230,6 @@ const Quiz = props => {
             </Grid>
             <Grid container item xs={12}>
                 <FormRow options={options} setOption={setOption}  rows={operations.slice(8,12)} colorChoosed={colorChoosed} />
-            </Grid>
-            <Grid container item xs={12}>
-                <FormRow options={options} setOption={setOption}  rows={operations.slice(12,16)} colorChoosed={colorChoosed} />
             </Grid>
         </Grid>
         </form>}  

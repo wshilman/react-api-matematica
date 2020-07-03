@@ -52,8 +52,6 @@
     cursor:"pointer";
 }
 
-
-
 .textHeart{
     top: 85px;
     position: relative;
@@ -66,4 +64,21 @@
     position: relative;
     font-size: large;
     line-height: 0px;
+}
+
+.containerOperation{
+    display: grid;
+}
+
+.containerHeart{
+    background: none!important;
+    box-shadow: none!important;
+
+}
+
+
+.containerHeartColor{
+    background: none!important;
+    box-shadow: none!important;
+
 }
