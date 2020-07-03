@@ -175,10 +175,16 @@ const Game3 = () => {
         
         
     }
-    
+    const nivel = localStorage.getItem('idLvl');
+    const handlePoints = (points) => {
+        // pointsGame1Lvl1
+        const now = localStorage.getItem(`pointsGame3Lvl${nivel}`)
+        now ? localStorage.setItem(`pointsGame3Lvl${nivel}`, parseInt(now) + points):localStorage.setItem(`pointsGame3Lvl${nivel}`,points)
+        console.log(localStorage.getItem(`pointsGame3Lvl${nivel}`))
+    }
 
     const packs = manageData(localStorage.getItem('idLvl'))
-    const nivel = localStorage.getItem('idLvl');
+    
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         axios(
@@ -217,8 +223,15 @@ const Game3 = () => {
             }
             
         });
+        let point = 10;
+        if(nivel==2){
+            point=20;
+        }else{
+            point=30;
+        }
         let finishLevel = localStorage.getItem('idLvl')==3;
-        let puntaje = (ok*10)+"/"+(totalRta*10);
+        let puntaje = (ok*point)+"/"+(totalRta*point);
+        handlePoints(puntaje);
         if(finishLevel){
             Alert.finishLevel({puntaje});
         }else{

@@ -185,7 +185,8 @@ const Game1 = () => {
       }, []);
 
     const packs = manageData(localStorage.getItem('idLvl'))
-
+    
+    const nivel = localStorage.getItem('idLvl');
     
     
     const renderRedirect = () => {
@@ -204,13 +205,14 @@ const Game1 = () => {
                 </Box>
             </div>
             :<Board>
+                <h4 style={{marginLeft: "auto",marginRight: "auto"}}>Resuelve y Elige la opcion correcta (Nivel {nivel})</h4>
             <CardDeck>
                 {/* {console.log(data)} */}
-                <Quiz pack={packs.pack1} finishProgress={2}>
+                <Quiz pack={packs.pack1} data={data[0]} setData={setData} finishProgress={2}>
                 </Quiz>
-                <Quiz pack={packs.pack2} finishProgress={2}>
+                <Quiz pack={packs.pack2} data={data[1]} setData={setData} finishProgress={2}>
                 </Quiz>
-                <Quiz pack={packs.pack3} finishProgress={2}>
+                <Quiz pack={packs.pack3} data={data[2]} setData={setData} finishProgress={2}>
                 </Quiz>
             </CardDeck>
             <FooterNav/>

@@ -51,7 +51,7 @@ const Quiz = props => {
   const [error, setError] = React.useState(false);
   const [won, setWon] = React.useState(false);
   const [sendRta, setSendRta] = React.useState(false);
-
+  
 
   const handleRadioChange = (event) => {
     // localStorage.clear()
@@ -68,7 +68,9 @@ const Quiz = props => {
   
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    let ok = 0;
+    let error = 0;
+    
     if (value === 'right' && !won) {
       setError(false);
       setProgress(progress + 1)
@@ -89,11 +91,16 @@ const Quiz = props => {
       setError(true);
     }
     console.log("Progress ",progress);
-    if(progress === finishProgress){
-      Alert.finishLevel({
-        next: lvl,
-
-      });
+    let finishLevel = localStorage.getItem('idLvl')==3;
+    let puntaje = localStorage.getItem(`pointsGame1Lvl${lvl}`)
+      if(progress === finishProgress){
+        if(finishLevel){
+          Alert.finishLevel({puntaje});
+      }else{
+          let nextLevel =localStorage.getItem('idLvl');
+          nextLevel++;
+          Alert.finishLevel({puntaje,level:nextLevel,next:"juego1"});
+      }
     }
   };
 
