@@ -9,11 +9,13 @@ import { Link, Redirect} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import History  from '../services/History';
 
+import Typography from '@material-ui/core/Typography';
 
 
-import n1 from '../media/level1.png'
-import n2 from '../media/level2.png'
-import n3 from '../media/level3.png'
+
+import n1 from '../media/nivel1.png'
+import n2 from '../media/nivel2.png'
+import n3 from '../media/nivel3.png'
 
 
 
@@ -23,10 +25,11 @@ const useStyles = makeStyles({
     marginLeft:"14%",
     alignItems:"center",
     marginBottom: 15,
+    boxShadow: "none!important",
     backgroundColor:"#ffffff1c"
   },
   media: {
-    height: 160,
+    height: 200,
   },
   grid:{
     display:"flex",
@@ -67,13 +70,16 @@ const Levels = (props) =>{
         <Card className={classes.card} >
         <Link onClick={()=>{handleClick(1)}} to={handleGame()} style={{ textDecoration: 'none' }}>
 
-          <CardActionArea style={{minWidth: "200px"}}>
+          <CardActionArea style={{minWidth: "200px",}}>
             <CardMedia
               className={classes.media}
               image={n1}
               title="Nivel 1"
             />
             <CardContent>
+              <Typography gutterBottom variant="h5" component="h2" style={{fontWeight: "600",color: "rgb(53, 169, 171)"}}>
+                Practicamos un poquito!
+              </Typography>
             </CardContent>
           </CardActionArea>
         </Link>
@@ -88,6 +94,9 @@ const Levels = (props) =>{
                 title="Nivel 2"
               />
               <CardContent>
+              <Typography gutterBottom variant="h5" component="h2" style={{fontWeight: "600",color: "#d8206d"}}>
+                  Un poco Complicado!
+              </Typography>
               </CardContent>
             </CardActionArea>
             </Link>
@@ -102,6 +111,9 @@ const Levels = (props) =>{
                     title="Nivel 3"
                   />
                   <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2" style={{fontWeight: "600",color: "#3F51B5"}}>
+                    Uy que Dificil!
+                  </Typography>
                   </CardContent>
                 </CardActionArea>
             </Link>

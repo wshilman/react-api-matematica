@@ -43,17 +43,20 @@ const Source = props => {
 }
 
 const Target = props => {
-    let {target,setProgress,progress} = props.pack
+    let {target,setProgress,progress,removePoints} = props.pack
     const value = props.text;
     const [passed, setPassed] = useState(false);
 
 
 
     const handleDrop = () => {
+        console.log("DROP-------------------");
             if((value == target) && !passed){
                 setProgress(progress +1);
                 setPassed(true);
 
+            }else{
+                removePoints();
             }
     }
     

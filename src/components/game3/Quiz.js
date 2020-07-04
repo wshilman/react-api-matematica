@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Button from '@material-ui/core/Button';
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -16,11 +15,6 @@ import iconHeart1 from '../../media/heart.png';
 import iconHeart2 from '../../media/heart2.png';
 import iconHeart3 from '../../media/heart3.png';
 import iconHeart4 from '../../media/heart4.png';
-
-import iconStale from '../../media/stale.png';
-import iconOk from '../../media/ok.png';
-import iconError from '../../media/error.png';
-import Alert from "../../services/Alert";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,28 +31,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Quiz = props => {
 
-  // TODO
-  // USAR EL LVL DEL LOCALSTORAGE
-  let { n,
-    quest,
-    n1,
-    n2,
-    operation,
-    r1,
-    r2,
-    r3,
-    r4,
-    right,
-    setProgress,
-    progress,
-    lvl
-  } = props.pack
-  const finishProgress = props.finishProgress;
   const classes = useStyles();
-  const [value, setValue] = React.useState('');
   const [colorChoosed, setColorChoosed] = React.useState(-1);
   const setData = props.setData;
-
+  const rtas = props.rtas;
   const iconOperation = {
       "SUMA": " + ",
       "MULTIPLICACION": " x ",
@@ -66,12 +42,11 @@ const Quiz = props => {
   };
 
   const handlerSelectColor = (value,index)=>{
-    console.log("handlerSelectColor",value,index);
     setColorChoosed(value);
   };
 
   const colors = [iconHeart1,iconHeart2,iconHeart3,iconHeart4];
-  const options = [23,45,64,87];
+  const options = rtas;
   const data = props.data;
 
   const [operations, setOperations] = React.useState(data);
@@ -96,51 +71,6 @@ const Quiz = props => {
     setOperations(options);
     setData(options);
   }
-
-  const [error, setError] = React.useState(false);
-  const [won, setWon] = React.useState(false);
-  const [sendRta, setSendRta] = React.useState(false);
-
-
-
-  const handlePoints = (points) => {
-    // pointsGame1Lvl1
-    const now = localStorage.getItem(`pointsGame1Lvl${lvl}`)
-    now ? localStorage.setItem(`pointsGame1Lvl${lvl}`, parseInt(now) + points):localStorage.setItem(`pointsGame1Lvl${lvl}`,points)
-    console.log(localStorage.getItem(`pointsGame1Lvl${lvl}`))
-  }
-  
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    if (value === 'right' && !won) {
-      setError(false);
-      setProgress(progress + 1)
-      setWon(true)
-      setSendRta(true);
-      handlePoints(10);
-    } else if (value === 'right') {
-      setProgress(progress + 1)
-      handlePoints(10);
-      setError(false);
-      setSendRta(true);
-    } else if (value === 'bad1' || 'bad2' || 'bad3' || 'bad4') {
-      setProgress(progress + 1)
-      handlePoints(0)
-      setError(true);
-      setSendRta(true);
-    } else {
-      setError(true);
-    }
-    console.log("Progress ",progress);
-    if(progress === finishProgress){
-      Alert.finishLevel({
-        next: lvl,
-
-      });
-    }
-  };
-
   
   function FormRowColor(props){
     const valueChoosed = props.colorChoosed??false;
@@ -148,7 +78,6 @@ const Quiz = props => {
     const rows = props.rows;
     const handlerSelectColor = props.handlerSelectColor;
     
-    console.log("valueChoosed",valueChoosed);
     const handleChange = (event) => {
       setValue(event.target.value);
     };
@@ -217,7 +146,7 @@ const Quiz = props => {
   return (
     <div style={{minHeight: "450px"}} >
       {props && 
-        <form onSubmit={handleSubmit}>
+        <form>
           <Grid container spacing={1}>
             <Grid container item xs={12} style={{marginBottom: '20px'}}>
                 <FormRowColor rows={options} handlerSelectColor={handlerSelectColor}  colorChoosed={colorChoosed}/>

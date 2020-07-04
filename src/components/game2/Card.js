@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useDrag } from 'react-dnd';
 import { useDrop } from 'react-dnd';
-import correct from '../../media/correct.png'
+import correct from '../../media/cerdito_ok.png'
 import './Game2.css';
 
 import Alert from "../../services/Alert";
@@ -42,7 +42,7 @@ const Source = props => {
                 {handleState()}
                 <div>
                     <div className="appleMountContainer">
-                        <div className="mount">
+                        <div className="mount" style={{left:"15px"}}>
                             {props.text}
                         </div>
                     </div>
@@ -53,17 +53,21 @@ const Source = props => {
 }
 
 const Target = props => {
-    let {target,setProgress,progress} = props.pack
+    let {target,setProgress,progress,removePoints,avanzar} = props.pack
     const value = props.text;
+    const operation = props.operation;
     const [passed, setPassed] = useState(false);
 
 
 
     const handleDrop = () => {
             if((value == target) && !passed){
-                setProgress(progress +1);
+                //setProgress(progress +1);
+                avanzar();
                 setPassed(true);
 
+            }else{
+                removePoints();
             }
     }
     
@@ -83,11 +87,15 @@ const Target = props => {
             
         }else{
             return(
-                <img alt='Imagen Correcto' className="img"  src={correct}></img>
-                // <h1 style={{marginTop:"40%",
-                //     color: "black",
-                //     opacity:0.1}}>{value}</h1>
-                    )
+                <div className="containerPig">
+                    <div className="containerMount">
+                        <div className="mount" style={{fontSize: "larger"}}>
+                            {operation} = {value}
+                        </div>
+                    </div>
+                    <img src={correct} class="img"/>
+                </div>
+            )
         }
         
         

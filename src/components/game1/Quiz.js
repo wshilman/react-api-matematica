@@ -94,13 +94,17 @@ const Quiz = props => {
     let finishLevel = localStorage.getItem('idLvl')==3;
     let puntaje = localStorage.getItem(`pointsGame1Lvl${lvl}`)
       if(progress === finishProgress){
-        if(finishLevel){
-          Alert.finishLevel({puntaje});
-      }else{
-          let nextLevel =localStorage.getItem('idLvl');
-          nextLevel++;
-          Alert.finishLevel({puntaje,level:nextLevel,next:"juego1"});
-      }
+        if(puntaje==0){
+          Alert.tryAgain();
+        }else{
+          if(finishLevel){
+            Alert.finishLevel({puntaje});
+          }else{
+              let nextLevel =localStorage.getItem('idLvl');
+              nextLevel++;
+              Alert.finishLevel({puntaje,level:nextLevel,next:"juego1"});
+          } 
+        }
     }
   };
 

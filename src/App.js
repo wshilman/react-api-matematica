@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import './Main.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './components/Login';
@@ -13,15 +13,21 @@ import 'fontsource-roboto';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const App = ()=> {
-
+  
+  const [login, setLogin] = useState(false);
+  const startGame = (data)=>{
+    localStorage.setItem("id",data._id);
+    localStorage.setItem('name', data.name);
+    setLogin(true);
+  }
   return (
-
-    
     <Router>
       <div className="App">
-      <Nav/>
+      {!login?<Login startGame={startGame} />:
+        <div>
+        <Nav/>
         <Switch>
-          <Route path="/" exact component={() => <Login/>} />
+          <Route path="/" exact component={() => login?<Games />:<Login/>} />
 
           <Route path="/juegos" exact component={()=> <Games />}/>
 
@@ -33,6 +39,8 @@ const App = ()=> {
 
           <Route path="/juego3" exact component={() => <Game3></Game3> }/>
         </Switch>
+        </div>
+      }
       </div>
     </Router>
   );

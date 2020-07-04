@@ -7,35 +7,43 @@ class ApiRest {
     logout({nickname}) {
         return http.post("/session/logout",{nickname});
     }
-    startGame(id){
+    saveScore(game,id,score,level){
         //return http.get("/tutorials");
     }
-    getAll() {
-        return http.get("/tutorials");
-    }
 
-    get(id) {
-        return http.get(`/tutorials/${id}`);
+    getEatingGame(level){
+        return new Promise((resolve,reject)=>{
+            http.get('/game/eat/level/'+level)
+            .then((result)=>{
+                resolve(result.data);
+            }).catch(reject)
+        })
     }
-
-    create(data) {
-        return http.post("/tutorials", data);
+    getPaintingGame(level){
+        return new Promise((resolve,reject)=>{
+            http.get('/game/painting/level/'+level)
+            .then((result)=>{
+                let rtas = [];
+                let data = result.data.map((v,index)=>{
+                    v.id = index;
+                    if(rtas.indexOf(v.rta)==-1) rtas.push(v.rta);
+                    return v;
+                });
+                resolve({data,rtas});
+            }).catch(reject)
+        })
     }
-
-    update(id, data) {
-        return http.put(`/tutorials/${id}`, data);
-    }
-
-    delete(id) {
-        return http.delete(`/tutorials/${id}`);
-    }
-
-    deleteAll() {
-        return http.delete(`/tutorials`);
-    }
-
-    findByTitle(title) {
-        return http.get(`/tutorials?title=${title}`);
+    getMultipleGame(level){
+        return new Promise((resolve,reject)=>{
+            http.get('/game/multiple/level/'+level)
+            .then((result)=>{
+                result.data = result.data.map((v,index)=>{
+                    v.id = index;
+                    return v;
+                });
+                resolve(result.data);
+            }).catch(reject)
+        })
     }
 }
 

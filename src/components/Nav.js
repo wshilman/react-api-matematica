@@ -6,6 +6,7 @@ import { Button } from "@material-ui/core";
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import ApiRest from "../services/ApiRest";
+import Alert from "../services/Alert";
 
 
 const useStyles = makeStyles({
@@ -32,7 +33,7 @@ const useStyles = makeStyles({
     },
     divs:{
         float:'left',
-        width:'34%'
+        //width:'34%'
     }
 });
 
@@ -40,22 +41,22 @@ const Nav = ()=>{
     const classes = useStyles();
     const nombre = localStorage.getItem('name');
     const handleClick = () => {
-        localStorage.removeItem('name');
-        window.location.reload();  
-        /*ApiRest.logout(data)
+        localStorage.clear();
+        /*ApiRest.logout()
         .then(response => {
-          localStorage.setItem('name', name);
-          localStorage.setItem('lastname', lastname);
-          localStorage.setItem('classroom', classroom);
-          console.log(response.data);
-          setLogin(true);
         })
         .catch(e => {
-          Alert.error({message:`Oops intenta de nuevo`});
-          console.error(e);
         });*/
+        window.location = "/";
     }
     
+    const handleScore = () => {
+        Alert.score();
+    }
+    const handleHome = ()=>{
+        window.location="/juegos"
+    };
+    console.log(nombre);
     /**
      * 
      * 
@@ -64,7 +65,7 @@ const Nav = ()=>{
      */
     return(
         <div>
-            {nombre &&
+            {
             <div className={classes.nav}>
                 <div className={classes.divs}>
                     <h1 className={classes.text} >Hola: {nombre}! </h1>
@@ -72,6 +73,12 @@ const Nav = ()=>{
                 </div>
                 <div className={classes.divs} style={{textAlign: "right",float: "right"}}>
                     <Button className={classes.button} onClick={()=>{handleClick()}}> Cerrar Sesion</Button>
+                </div>
+                <div className={classes.divs} style={{textAlign: "right",float: "right"}}>
+                    <Button className={classes.button} onClick={()=>{handleScore()}}> Mi Puntaje</Button>
+                </div>
+                <div className={classes.divs} style={{textAlign: "right",float: "right"}}>
+                    <Button className={classes.button} onClick={()=>{handleHome()}}> JUEGOS</Button>
                 </div>
             </div>}
         </div>

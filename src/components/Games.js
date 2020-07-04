@@ -99,11 +99,11 @@ const Games = props =>{
             title={data.name}
           />
           <CardContent className={classes.text}>
-            <Typography gutterBottom variant="h5" component="h2">
+            <Typography gutterBottom variant="h5" component="h2" style={{fontWeight: "600"}}>
               {data.name}
             </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {data.description}
+            <Typography variant="body2" color="textSecondary" component="p" >
+              <span style={{fontWeight: "800"}}>{data.description}</span>
             </Typography>
           </CardContent>
         </CardActionArea>

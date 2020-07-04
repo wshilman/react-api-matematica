@@ -8,17 +8,12 @@ import iconPrev from '../media/prev.png';
 
 
 const FooterNav = ({nombre})=>{
-
+    const linkTo = `/niveles`
     return (
         <Grid container spacing={3} style={{paddingTop:"20px"}}>
             <Grid item xs={6}>
-                <Link to='/juegos' style={{ textDecoration: 'none' }}>
+                <Link to={linkTo} style={{ textDecoration: 'none' }}>
                     <img src={iconPrev} style={{width:"80px",cursor:"pointer"}} alt="Previo"/>
-                </Link>
-            </Grid>
-            <Grid item xs={6}>
-                <Link to='/nivel2' style={{ textDecoration: 'none' }}>
-                    <img src={iconNext} style={{width:"80px",cursor:"pointer"}} alt="Proximo"/>
                 </Link>
             </Grid>
         </Grid>

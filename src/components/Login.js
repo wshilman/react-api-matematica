@@ -57,6 +57,7 @@ const Login = props =>{
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const classes = useStyles();
+  const startGame = props.startGame;
 
   const handleClick = event =>{
     event.preventDefault();
@@ -65,21 +66,7 @@ const Login = props =>{
       
       ApiRest.login(data)
       .then(response => {
-        //localStorage.setItem('id', );
-        console.log("LOGIN RESPONSE",response);
-        localStorage.setItem("id",response.data._id);
-        localStorage.setItem('name', name);
-        localStorage.setItem('lastname', lastname);
-        localStorage.setItem('classroom', classroom);
-        setLogin(true);
-        /*ApiRest.startGame(response.data._id).then(play=>{
-          localStorage.setItem('play', play);
-          localStorage.setItem('name', name);
-          localStorage.setItem('lastname', lastname);
-          localStorage.setItem('classroom', classroom);
-          setLogin(true);
-        });*/
-        
+        startGame(response.data);
       })
       .catch(e => {
         Alert.error({message:`Oops intenta de nuevo`});
