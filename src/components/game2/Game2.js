@@ -1,31 +1,20 @@
 import React from 'react'
 import Board from './Board'
-import WinPage from '../../utils/WinPage'
-
+import ApiRest from "../../services/ApiRest";
 import { Source , Target } from './Card'
 import { useState, useEffect } from 'react';
 import CardDeck from 'react-bootstrap/CardDeck'
 import Grid from '@material-ui/core/Grid';
 import FooterNav from '../FooterNav';
-
-import axios from 'axios';
 import Box from '@material-ui/core/Box';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Alert from "../../services/Alert";
-
-import { Redirect, Link } from 'react-router-dom';
-
-
-
-
-
 
 const Game2 = () => {
     const [target, setTarget] = useState(0);
     const [progress, setProgress] = useState(0);
     const [ data, setData] = useState([]);
-    const [ sources, setSources] = useState([]);
-    const [ targets, setTargets] = useState([]);
+
     const nivel = localStorage.getItem('idLvl');
     const nivelNumber = window.Number.parseInt(nivel);
     const removeFrom = 50*nivelNumber;
@@ -33,9 +22,7 @@ const Game2 = () => {
     const [ points, setPoints] = useState(total);
 
     const removePoints = ()=>{
-        console.log("--------------- FROM ",points);
         let newPoints = points-removeFrom;
-        console.log("--------------- newPoints",newPoints);
         setPoints(newPoints);
         if(newPoints<=0){
             Alert.tryAgain();
@@ -47,44 +34,21 @@ const Game2 = () => {
         // pointsGame1Lvl1
         const now = localStorage.getItem(`pointsGame2Lvl${nivel}`)
         now ? localStorage.setItem(`pointsGame2Lvl${nivel}`, parseInt(now) + points):localStorage.setItem(`pointsGame2Lvl${nivel}`,points)
-        console.log(localStorage.getItem(`pointsGame2Lvl${nivel}`))
+
     }
     
 
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        axios(
-            'http://localhost:8000/game/eat/level/'+localStorage.getItem('idLvl'),
-        ).then((result)=>{
-            let rows = result.data;
-            let data = [
-                rows[2],rows[1],rows[0]
-            ];
-            if(nivel==2){
-                data = [
-                    rows[1],rows[0],rows[2]
-                ];
-            }
-            if(nivel==3){
-                data = [
-                    rows[0],rows[1],rows[2]
-                ];
-            }
-            setData(data);
-            console.log(data);
+
+        ApiRest.getEatingGame(nivel).then((config)=>{
+            setData(config.data);
             setLoading(loading => false);
         }).catch(()=>{
-            
+            Alert.error({message:`Oops! Hay un error`});  
         });
     }, []);
         
-    const renderRedirect = () => {
-        if(!localStorage.getItem('name')){
-          return(<Redirect to='/'></Redirect>)
-        }
-      }
-
-    
     const avanzar = ()=>{
         setProgress(progress +1);
         
@@ -92,6 +56,16 @@ const Game2 = () => {
             handlePoints(points);
             
             let puntaje = points;
+            let player = localStorage.getItem("id");
+            let game = localStorage.getItem("idJuego");
+            ApiRest.saveScore({id:player,level:nivel,game,points})
+            .then((config)=>{
+                console.log("Score Saved!");
+            }).catch((e)=>{
+                Alert.error({message:`Oops! No se pudo guardar tu puntaje`});  
+                console.log(e);
+            });
+            
             Alert.finishLevel({puntaje,level:nivel,route:"juego2"});
         }
     }

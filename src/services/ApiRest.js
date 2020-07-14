@@ -7,15 +7,21 @@ class ApiRest {
     logout({nickname}) {
         return http.post("/session/logout",{nickname});
     }
-    saveScore(game,id,score,level){
-        //return http.get("/tutorials");
+    saveScore({game,id,points,level}){
+        return new Promise((resolve,reject)=>{
+            let data = {game,id,points,level};
+            http.post('/player/score',data)
+            .then((result)=>{
+                resolve({data:result.data});
+            }).catch(reject)
+        })
     }
 
     getEatingGame(level){
         return new Promise((resolve,reject)=>{
             http.get('/game/eat/level/'+level)
             .then((result)=>{
-                resolve(result.data);
+                resolve({data:result.data});
             }).catch(reject)
         })
     }
@@ -37,6 +43,7 @@ class ApiRest {
         return new Promise((resolve,reject)=>{
             http.get('/game/multiple/level/'+level)
             .then((result)=>{
+                console.warn(result);
                 result.data = result.data.map((v,index)=>{
                     v.id = index;
                     return v;

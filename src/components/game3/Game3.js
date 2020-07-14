@@ -7,21 +7,15 @@ import { useState, useEffect } from 'react';
 import WinPage from '../../utils/WinPage'
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import axios from 'axios';
 import Box from '@material-ui/core/Box';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Alert from "../../services/Alert";
 import ApiRest from "../../services/ApiRest";
-
-
-
 import CardDeck from 'react-bootstrap/CardDeck'
-import { Redirect, Link } from 'react-router-dom';
 
 
 
 const Game3 = () => {
-    const [ progress, setProgress] = useState(0);
     const [ data, setData] = useState([]);
     const [ rtas, setRtas] = useState([]);
     const sumPoints = 10;
@@ -40,16 +34,11 @@ const Game3 = () => {
             setData(config.data);
             setRtas(config.rtas);
             setLoading(loading => false);
-        })
+        }).catch(()=>{
+            Alert.error({message:`Oops! Hay un error`});  
+        });
     }, []);
         
-    const renderRedirect = () => {
-        if(!localStorage.getItem('name')){
-          return(<Redirect to='/'></Redirect>)
-        }
-    }
-
-    
     const handleClickCheck = ()=>{
         let ok = 0;
         let error = 0;
@@ -64,9 +53,19 @@ const Game3 = () => {
                 }
             }  
         });
-        let puntaje = (ok*sumPoints)+"/"+(totalRta*sumPoints);
-        let finishLevel = nivel==3;
+        let points = ok*sumPoints;
+        let puntaje = points+"/"+(totalRta*sumPoints);
         handlePoints(puntaje);
+        let player = localStorage.getItem("id");
+        let game = localStorage.getItem("idJuego");
+        ApiRest.saveScore({id:player,level:nivel,game,points})
+        .then((config)=>{
+            console.log("Score Saved!");
+        }).catch((e)=>{
+            Alert.error({message:`Oops! No se pudo guardar tu puntaje`});  
+            console.log(e);
+        });
+        
         Alert.finishLevel({puntaje,level:nivel,route:"juego3"});
     
     }
@@ -99,7 +98,6 @@ const Game3 = () => {
 
             </div>
             <FooterNav/>
-            {renderRedirect()}
         </Board>
     )
 }

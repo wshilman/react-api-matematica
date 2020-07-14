@@ -14,16 +14,18 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const App = ()=> {
   
-  const [login, setLogin] = useState(false);
+  const isLogin = localStorage.getItem("id");
+  const [login, setLogin] = useState(isLogin);
   const startGame = (data)=>{
     localStorage.setItem("id",data._id);
     localStorage.setItem('name', data.name);
     setLogin(true);
   }
+  console.log("login",login,isLogin);
   return (
     <Router>
       <div className="App">
-      {!login?<Login startGame={startGame} />:
+      {!login && !isLogin?<Login startGame={startGame} />:
         <div>
         <Nav/>
         <Switch>

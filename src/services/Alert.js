@@ -39,7 +39,9 @@ class Alert{
                 no-repeat
             `
         };
+        level = window.Number.parseInt(level);
         let finishLevel = level==3;
+        let nextLevel = level+1;
         if(!finishLevel){
             configAlert.confirmButtonText =  `<b>Proximo Nivel <i class="fa fa-arrow-right"></i></b>`;
             configAlert.text = 'Tu puntaje es '+puntaje;
@@ -53,8 +55,10 @@ class Alert{
         }
         Swal.fire(configAlert).then((result) => {
             if (result.value) {
+                console.log("finishLevel",finishLevel,"LEVEL",level,nextLevel);
                 if(!finishLevel){
-                    localStorage.setItem('idLvl',level++);
+
+                    localStorage.setItem('idLvl',nextLevel);
                     window.location.href = "/"+route;
                 }else{
                     localStorage.setItem('idLvl',1);

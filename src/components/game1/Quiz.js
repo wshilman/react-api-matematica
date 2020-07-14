@@ -4,6 +4,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
+import ApiRest from "../../services/ApiRest";
 
 import Card from 'react-bootstrap/Card'
 import CardDeck from 'react-bootstrap/CardDeck'
@@ -31,28 +32,22 @@ const Quiz = props => {
 
   // TODO
   // USAR EL LVL DEL LOCALSTORAGE
-  let { n,
-    quest,
+  let {
     n1,
     n2,
     operation,
-    r1,
-    r2,
-    r3,
-    r4,
-    right,
-    setProgress,
-    progress,
-    lvl
-  } = props.pack
+    options
+  } = props.data
+  const setProgress = props.setProgress;
+  const progress = props.progress;
   const finishProgress = props.finishProgress;
   const classes = useStyles();
   const [value, setValue] = React.useState('');
   const [error, setError] = React.useState(false);
   const [won, setWon] = React.useState(false);
   const [sendRta, setSendRta] = React.useState(false);
-  
-
+  const nivel = localStorage.getItem('idLvl');
+  const lvl = nivel;
   const handleRadioChange = (event) => {
     // localStorage.clear()
     setValue(event.target.value);
@@ -91,25 +86,27 @@ const Quiz = props => {
       setError(true);
     }
     console.log("Progress ",progress);
-    let finishLevel = localStorage.getItem('idLvl')==3;
     let puntaje = localStorage.getItem(`pointsGame1Lvl${lvl}`)
       if(progress === finishProgress){
         if(puntaje==0){
           Alert.tryAgain();
         }else{
-          if(finishLevel){
-            Alert.finishLevel({puntaje});
-          }else{
-              let nextLevel =localStorage.getItem('idLvl');
-              nextLevel++;
-              Alert.finishLevel({puntaje,level:nextLevel,next:"juego1"});
-          } 
+          let player = localStorage.getItem("id");
+          let game = localStorage.getItem("idJuego");
+          ApiRest.saveScore({id:player,level:nivel,game,points:puntaje})
+          .then((config)=>{
+            console.log("Score Saved!");
+          }).catch((e)=>{
+            Alert.error({message:`Oops! No se pudo guardar tu puntaje`});  
+            console.log(e);
+          });
+          Alert.finishLevel({puntaje,level:nivel,route:"juego1"});
         }
     }
   };
 
   return (
-    <Card style={{maxHeight: "450px"}} border={ won?'success': error?"danger":"light"} >
+    <Card style={{maxHeight: "500px"}} border={ won?'success': error?"danger":"light"} >
       {props && 
         <form onSubmit={handleSubmit}>
           <Card.Img variant="top" style={{width: "50px",paddingTop:"10px"}} src={ won?iconOk: error?iconError:iconStale} />
@@ -117,17 +114,17 @@ const Quiz = props => {
             <Card.Title>
               <CardDeck>
                 <Card style={{ width: '18rem' }}>
-                  <Card.Body>
+                  <Card.Body style={{ padding: '10px' }}>
                     {n1}
                   </Card.Body>
                 </Card>
                 <Card style={{ width: '18rem' }}>
-                  <Card.Body>
+                  <Card.Body style={{ padding: '10px' }}>
                     {operation}
                   </Card.Body>
                 </Card>
                 <Card style={{ width: '18rem' }}>
-                  <Card.Body>
+                  <Card.Body style={{ padding: '10px' }}>
                     {n2}
                   </Card.Body>
                 </Card>
@@ -135,10 +132,10 @@ const Quiz = props => {
             </Card.Title>
             <Card.Text>
             <RadioGroup aria-label="quiz" name="quiz" value={value} onChange={handleRadioChange} style={{marginTop:10}}>
-              <FormControlLabel value={right === 1 ? "right": "bad1"}  disabled={sendRta} control={<Radio />} label={r1} />
-              <FormControlLabel value={right === 2 ? "right": "bad2"}  disabled={sendRta} control={<Radio />} label={r2} />
-              <FormControlLabel value={right === 3 ? "right": "bad3"}  disabled={sendRta} control={<Radio />} label={r3} />
-              <FormControlLabel value={right === 4 ? "right": "bad4"}  disabled={sendRta} control={<Radio />} label={r4} />
+              {options.map((op,index)=>
+                <FormControlLabel value={op.right? "right": "bad"+index}  disabled={sendRta} control={<Radio />} label={op.rta} />
+              )}
+              
             </RadioGroup>
 
             </Card.Text>
